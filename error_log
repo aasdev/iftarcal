@@ -1,0 +1,173 @@
+[01-Aug-2012 14:10:09] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 14:10:09] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 15:26:35] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 15:26:35] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 16:56:23] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 16:56:23] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 21:26:49] PHP Notice:  Undefined index:  date in /home/uwms/public_html/apps/iftar2012/showassigned.php on line 14
+[01-Aug-2012 22:39:22] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 22:39:22] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 23:47:51] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Aug-2012 23:47:51] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[02-Aug-2012 11:42:15] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[02-Aug-2012 11:42:15] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[02-Aug-2012 11:58:07] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[02-Aug-2012 11:58:07] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[02-Aug-2012 15:49:24] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[02-Aug-2012 15:49:24] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[03-Aug-2012 13:23:49] PHP Fatal error:  PDO: driver sqlite requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:23:49] PHP Fatal error:  Unable to start pdo_sqlite module in Unknown on line 0
+[03-Aug-2012 13:23:53] PHP Fatal error:  PDO: driver sqlite requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:23:53] PHP Fatal error:  Unable to start pdo_sqlite module in Unknown on line 0
+[03-Aug-2012 13:24:14] PHP Fatal error:  PDO: driver sqlite requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:24:14] PHP Fatal error:  Unable to start pdo_sqlite module in Unknown on line 0
+[03-Aug-2012 13:24:32] PHP Fatal error:  PDO: driver sqlite requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:24:32] PHP Fatal error:  Unable to start pdo_sqlite module in Unknown on line 0
+[03-Aug-2012 13:24:53] PHP Fatal error:  PDO: driver sqlite requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:24:53] PHP Fatal error:  Unable to start pdo_sqlite module in Unknown on line 0
+[03-Aug-2012 13:26:28] PHP Fatal error:  PDO: driver sqlite requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:26:28] PHP Fatal error:  Unable to start pdo_sqlite module in Unknown on line 0
+[03-Aug-2012 13:29:18] PHP Fatal error:  PDO: driver sqlite requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:29:18] PHP Fatal error:  Unable to start pdo_sqlite module in Unknown on line 0
+[03-Aug-2012 13:44:48] PHP Fatal error:  PDO: driver sqlite2 requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:44:48] PHP Fatal error:  Unable to start SQLite module in Unknown on line 0
+[03-Aug-2012 13:45:01] PHP Fatal error:  PDO: driver sqlite2 requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:45:01] PHP Fatal error:  Unable to start SQLite module in Unknown on line 0
+[03-Aug-2012 13:45:06] PHP Fatal error:  PDO: driver sqlite2 requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:45:06] PHP Fatal error:  Unable to start SQLite module in Unknown on line 0
+[03-Aug-2012 13:50:11] PHP Fatal error:  PDO: driver sqlite2 requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:50:11] PHP Fatal error:  Unable to start SQLite module in Unknown on line 0
+[03-Aug-2012 13:53:04] PHP Fatal error:  PDO: driver sqlite2 requires PDO API version 20060511; this is PDO version 20060409 in Unknown on line 0
+[03-Aug-2012 13:53:04] PHP Fatal error:  Unable to start SQLite module in Unknown on line 0
+[03-Aug-2012 14:26:45] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:26:45] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:33:00] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:33:00] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:41:12] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:41:12] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:41:14] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:41:14] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:41:25] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:41:25] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:41:37] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:41:37] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:41:49] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:41:49] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:41:54] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:41:54] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:42:00] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:42:00] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:49:03] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:49:03] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:49:06] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:49:06] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:55:48] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:55:48] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:55:56] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:55:56] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:56:41] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:56:41] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:56:49] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:56:49] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:57:10] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:57:10] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:57:26] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:57:26] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[03-Aug-2012 14:57:39] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20060613/pdo.so: cannot open shared object file: No such file or directory in Unknown on line 0
+[03-Aug-2012 14:57:39] PHP Warning:  Cannot load module 'pdo_sqlite' because required module 'pdo' is not loaded in Unknown on line 0
+[04-Aug-2012 16:10:07] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[04-Aug-2012 16:10:08] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[04-Aug-2012 17:12:15] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[04-Aug-2012 17:12:15] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[05-Aug-2012 03:30:28] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[05-Aug-2012 03:30:28] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[05-Aug-2012 10:02:36] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[05-Aug-2012 10:02:36] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[05-Aug-2012 11:42:39] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[05-Aug-2012 11:42:39] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 12:49:11] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 12:49:11] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 13:54:03] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 13:54:03] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 14:55:40] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 14:55:40] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 15:59:50] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 15:59:50] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 17:43:26] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 17:43:26] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 19:54:35] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 19:54:35] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 20:46:09] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 20:46:09] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 22:16:19] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[06-Aug-2012 22:16:19] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 09:17:44] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 09:17:44] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 10:54:20] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 10:54:20] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 12:34:35] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 12:34:35] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 13:37:22] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 13:37:22] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 14:54:16] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 14:54:16] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 16:46:18] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 16:46:18] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 17:53:59] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[07-Aug-2012 17:53:59] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[08-Aug-2012 14:52:20] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[08-Aug-2012 14:52:20] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[08-Aug-2012 16:07:38] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[08-Aug-2012 16:07:38] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[08-Aug-2012 22:24:25] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[08-Aug-2012 22:24:25] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[09-Aug-2012 12:14:15] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[09-Aug-2012 12:14:15] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[09-Aug-2012 23:00:37] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[09-Aug-2012 23:00:37] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[10-Aug-2012 00:18:17] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[10-Aug-2012 00:18:17] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[10-Aug-2012 17:30:04] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[10-Aug-2012 17:30:04] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[11-Aug-2012 15:59:52] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[11-Aug-2012 15:59:52] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[11-Aug-2012 17:19:06] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[11-Aug-2012 17:19:06] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 10:14:29] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 10:14:29] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 10:21:13] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 10:21:13] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 12:44:39] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 12:44:39] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 14:23:11] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 14:23:11] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 16:16:02] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 16:16:02] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 17:23:41] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 17:23:41] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 22:55:39] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[12-Aug-2012 22:55:39] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 00:06:34] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 00:06:34] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 01:22:25] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 01:22:25] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 03:05:06] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 03:05:06] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 04:14:31] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 04:14:31] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 05:27:23] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 05:27:23] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 11:29:13] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 11:29:13] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 12:53:40] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 12:53:40] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 15:36:51] PHP Notice:  Undefined index:  wantdate in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[13-Aug-2012 15:36:51] PHP Warning:  array_keys() [<a href='function.array-keys'>function.array-keys</a>]: The first argument should be an array in /home/uwms/public_html/apps/iftar2012/iftar.php on line 457
+[01-Jul-2013 05:35:23 US/Central] PHP Notice:  Undefined index: wantdate in /home/uwms/public_html/apps/iftar2013/iftar.php on line 457
+[01-Jul-2013 05:35:23 US/Central] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/uwms/public_html/apps/iftar2013/iftar.php on line 457
+[01-Jul-2013 09:27:18 US/Central] PHP Notice:  Undefined index: wantdate in /home/uwms/public_html/apps/iftar2013/iftar.php on line 457
+[01-Jul-2013 09:27:18 US/Central] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/uwms/public_html/apps/iftar2013/iftar.php on line 457
+[01-Jul-2013 09:28:48 US/Central] PHP Notice:  Undefined index: date in /home/uwms/public_html/apps/iftar2013/iftar.php on line 565
+[01-Jul-2013 09:28:48 US/Central] PHP Notice:  Undefined index: name in /home/uwms/public_html/apps/iftar2013/iftar.php on line 567
+[01-Jul-2013 09:28:48 US/Central] PHP Notice:  Undefined index: email in /home/uwms/public_html/apps/iftar2013/iftar.php on line 568
+[01-Jul-2013 09:28:48 US/Central] PHP Notice:  Undefined index: phone in /home/uwms/public_html/apps/iftar2013/iftar.php on line 569

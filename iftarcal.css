@@ -1,0 +1,131 @@
+.calframe {
+	padding-left: 10px;
+}
+
+.announce-title-left {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.iftarformheading {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.iftarformsubheading {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+.date {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: right;
+	vertical-align: top;
+}
+.hijridate {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 16px;
+	font-weight: normal;
+	text-align: right;
+	vertical-align: top;
+	font-style: italic;
+
+}
+.datebutton {
+	font-family: "Courier New", Courier, mono;
+	font-size: 12px;
+	font-weight: bold;
+	background-position: center;
+	margin: 0px;
+	padding: 0px;
+	width: 100px;
+
+}
+.assigned {
+	font-family: "Courier New", Courier, mono;
+	font-size: 15px;
+	font-weight: bold;
+	color: #CC0000;
+}
+
+.helptext {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: italic;
+	color: red;
+}
+
+.eid {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	font-style: italic;
+	color: maroon;
+	text-align: center;
+	vertical-align: text-bottom;
+	margin: 0px;
+	padding: 0px
+}
+	
+.potluck {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #009933;
+	text-align: center;
+	vertical-align: text-bottom;
+	margin: 0px;
+	padding: 0px;
+}
+
+.party {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	color: darkred;
+	text-align: center;
+	vertical-align: text-bottom;
+	margin: 0px;
+	margin-top: -20px;
+	padding: 0px
+}
+
+.assigntable {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+.reservetablefield {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+}
+.dateheader {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+.specialevent {
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #009933;
+	text-align: center;
+	vertical-align: text-top;
+	margin: 0px;
+	padding: 0px;
+}
+
+.iftarcontactinfo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}

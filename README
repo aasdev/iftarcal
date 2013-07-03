@@ -1,0 +1,59 @@
+iftarcal -- Iftar signup calendar
+Version: 0.2
+
+AUTHOR:  Anees Shaikh
+         Copyright (c) 2012, Anees Shaikh
+         All rights reserved.
+
+LICENSE
+
+This software is distributed under the GPL v.3 license.  Please see the the accompanying "LICENSE" file for terms.
+
+DESCRIPTION
+
+The iftar signup calendar application allows organizations to provide a web-based management app for community iftar during Ramadan.
+
+SYSTEM REQUIREMENTS
+
+iftarcal has been tested and deployed with PHP 5.2 and MySQL server 5.0 (community edition).
+
+It is recommended to use a tool like phpMyAdmin to simplify creation and setup of the database table for iftarcal.
+
+FILES
+
+  iftar.php         the main application file -- all functions are implemented here
+  iftarcal.sql         initialization for the iftarcal database (import using phpMyAdmin)
+  iftarcal.css      sample stylesheet for iftar calendar
+  iftar.js          javascript checks for signup form -- used in reservedate.php
+  events.dat        sample file for special events during the month (do not change the filename) -- see below
+  index.php         sample file for rendering the calendar view
+  reservedate.php   sample file for rendering signup form
+  reserve.php       sample file for processing reservation and printing a confirmation msg
+  showassigned.php  sample file for displaying the currently assigned iftar hosts
+  mailtest.php      utility file for testing the confirmation emails
+  emailconf-[top|bottom].html   sample email confirmation (do not change the filenames -- change content only).
+  class.phpmailer.php php class library for sending email (public domain, note copyright info in file)
+  
+INSTALLATION
+
+1. Set up the iftarcal database using the iftarcal.sql initialization file
+
+2. Modify the configuration parameters at the top of the iftar.php file
+
+3. Modify the email configuration settings in class.phpmailer.php (smtp host, email identity)
+
+4. Make changes to the emailconf-*.html and add your customizations to all the rendered php files (if you use them).
+
+5. Modify events.dat file if you have any special events during the month that would replace the iftar.  The events.dat
+file is tab-separated with <fulldate>	<text w/html tags>	<style name in iftarcal.css>.  See the example.
+
+
+KNOWN ISSUES
+
+o The current version is somewhat tied to having two hosts for each day.  Workaround is to supply the same name in both slots for a single hosts, or list multiple names in a slot for more than 2 hosts
+
+o There is no function in the current version to delete or modify
+hosts once they are in the db.  Changes require modifications to the database table directly.  This will be added in later version.
+
+
+
