@@ -22,34 +22,22 @@
 	font-weight: bold;
 	text-align: center;
 }
-.date {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	text-align: right;
-	vertical-align: top;
-}
-.hijridate {
-	font-family: "Times New Roman", Times, serif;
-	font-size: 16px;
-	font-weight: normal;
-	text-align: right;
-	vertical-align: top;
-	font-style: italic;
 
-}
-.datebutton {
-	font-family: "Courier New", Courier, mono;
+
+.iftarcal-datebutton {
+/*	font-family: "Courier New", Courier, mono;
 	font-size: 12px;
 	font-weight: bold;
-	background-position: center;
-	margin: 0px;
+*/
+/*
+	 margin: 0px;
 	padding: 0px;
-	width: 100px;
+	width: 100px; */
 
 }
-.assigned {
-	font-family: "Courier New", Courier, mono;
+
+.iftarcal-assigned {
+/* 	font-family: "Courier New", Courier, mono; */
 	font-size: 15px;
 	font-weight: bold;
 	color: #CC0000;
@@ -62,8 +50,8 @@
 	color: red;
 }
 
-.eid {
-	font-family: Arial, Helvetica, sans-serif;
+.iftarcal-eid {
+/*	font-family: Arial, Helvetica, sans-serif; */
 	font-size: 15px;
 	font-weight: bold;
 	font-style: italic;
@@ -72,6 +60,16 @@
 	vertical-align: text-bottom;
 	margin: 0px;
 	padding: 0px
+}
+
+.iftarhost-display {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.iftarhost-display-sm {
+	font-size: 18px;
+	font-weight: bold;
 }
 	
 .potluck {
@@ -85,9 +83,9 @@
 	padding: 0px;
 }
 
-.party {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
+.iftarcal-party {
+/*	font-family: Arial, Helvetica, sans-serif; */
+	font-size: 12px;
 	font-weight: bold;
 	color: darkred;
 	text-align: center;
@@ -106,13 +104,49 @@
 	font-size: 18px;
 	font-weight: bold;
 }
-.dateheader {
 
+.iftarcal-table-cell {
+	width: 110px;
+	height: 85px;
+	text-align: center;
+}
+
+.dateheader {
+/*	
 	font-family: Arial, Helvetica, sans-serif;
+*/	
 	font-size: 18px;
 	font-weight: bold;
 	text-align: center;
+	height: 35px;
 }
+
+.iftarcal-table-row {
+	vertical-align: top;
+}
+
+.iftarcal-table {
+	/* this should 7x the width of iftarcal-table-cell */
+	width: 770px;
+}
+
+.iftarcal-date {
+/*	font-family: Arial, Helvetica, sans-serif; */
+	font-size: 18px;
+	font-weight: bold;
+	text-align: right;
+	vertical-align: top;
+}
+
+.iftarcal-hijridate {
+/*	font-family: "Times New Roman", Times, serif; */
+	font-size: 16px;
+	font-weight: normal;
+	text-align: right;
+	vertical-align: top;
+	font-style: italic;
+}
+
 .specialevent {
 
 	font-family: Arial, Helvetica, sans-serif;
@@ -125,7 +159,7 @@
 	padding: 0px;
 }
 
-.iftarcontactinfo {
-	font-family: Arial, Helvetica, sans-serif;
+.iftarcal-contactinfo {
 	font-size: 14px;
+	font-weight: bold;
 }
