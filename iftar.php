@@ -859,7 +859,7 @@ function sendEmailConfirmation($key, $host, $hostarray) {
 		$mail->addAddress($CONFIG['debugmail']);  // Add a recipient
 	}
 	else {
-		$mail->addAddress($host['email'], $name);  // Add a recipient
+		$mail->addAddress($host['email'], $host['name']);  // Add a recipient
 		if ($CONFIG['send_to_all_hosts']) {
 			foreach ($hostarray as $h) {
 				if ($h['email'] === $host['email'])
