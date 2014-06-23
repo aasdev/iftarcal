@@ -15,11 +15,7 @@ $CONFIG = array (
 		'IFTARCAL_LOG_FILE' => "./iftarcal.log",
 		
 		// DATABASE CONFIG
-		// 'dbserver' => "localhost",
-		//'dbname' => "uwms_registration",                          // name of database
-		//'dbuser' => "uwms_reg",
-		//'dbpw' => "uwms2reg",
-
+		
 		'dbserver' => "localhost",
 		'dbname' => "test",				// name of database
 		'dbuser' => "root",
