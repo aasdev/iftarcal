@@ -147,6 +147,86 @@ function checkTable () {
 	
 	mysqli_close($dbconn);
 }
+/******************************************************************/
+function getEntryByKey ($key) {
+	
+	// returns an array containing db contents for the give date key.  returns false
+	// on failure. 
+	
+	global $CONFIG;
+	
+	// connect to DB
+	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
+	
+	if (! $dbconn) {
+		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
+		die ();
+	}
+	
+	// get a lock on the table
+	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " READ";
+	if (mysqli_query ( $dbconn, $query ) === false) {
+		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
+	}
+	
+	$query = "SELECT * FROM " . $CONFIG ['tablename'] . " WHERE date='$key'";
+	$data = mysqli_query ( $dbconn, $query );
+	if (mysqli_num_rows($data) == 0) {
+		// no row for this date
+		iftarcal_log ( E_USER_ERROR, "getEntryByKey(): Failed to lookup entry for date: $key ..." );
+		return false;
+	} else {
+		// found existing entry for this date
+		$row = mysqli_fetch_assoc ( $data );
+	}
+	
+	$entry = array();
+	
+	$entry['key'] = $key;
+	$entry['numhosts'] = $row['numhosts'];
+	if ($row['numhosts'] > 0) {
+		$hostarray = unserialize($row['hosts']);
+		foreach ($hostarray as $host) {
+			$entry['hosts'][] = $host;
+		}
+	}
+	else {
+		$entry['hosts'] = NULL;  // initialize to an empty array
+	}
+	
+	$entry['numcoord'] = $row['numcoord']; 
+	if ($row['numcoord'] > 0) {
+		$coordarray = unserialize($row['coordinators']);
+		foreach ($coordarray as $coord) {
+			$entry['coordinators'][] = $coord; 
+		}
+	}
+	else {
+		$entry['coordinators'] = NULL;
+	}
+	
+	$entry['numvolun'] = $row['numvolun'];
+	if ($row['numvolun'] > 0) {
+		$volunarray = unserialize($row['volunteers']);
+		foreach ($volunarray as $volun) {
+			$entry['volunteers'][] = $volun;
+		}
+	}
+	else {
+		$entry['volunteers'] = NULL;
+	}
+	
+	// release table lock
+	$query = "UNLOCK TABLES";
+	if (! ($result = mysqli_query ($dbconn,$query))) {
+		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
+	}
+	
+	mysqli_free_result($data);
+	mysqli_close($dbconn);
+	
+	return $entry;
+}
 
 /******************************************************************/
 
@@ -657,6 +737,12 @@ function printSignupInfo() {
 
 }
 
+function getContactEmail() {
+	global $CONFIG;
+	
+	return ($CONFIG['contact_email']);
+}
+
 
 /******************************************************************/
 function removeWhitespace ($string) {
@@ -830,6 +916,8 @@ function sendEmailConfirmation($key, $host, $hostarray) {
 	$dt = new DateTime($key);
 	$smarty = new Smarty();
 	
+	
+	iftarcal_log(E_USER_NOTICE, "sendEmailConfirmation(): date: $key " . print_r($host,true) . print_r ($hostarray, true));
 	$smarty->assign('host_name', $host['name']);
 	$smarty->assign('hosting_date', date_format($dt, 'D, M j, Y'));
 	$smarty->assign('masjid_name', $CONFIG['masjid_name']);

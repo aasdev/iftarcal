@@ -60,11 +60,20 @@
    			</div>
    			<div class="col-sm-4">
    			<p class="iftarhost-display-sm">Current hosts for <?php include_once "iftar.php"; printRequestedDate(); ?></p>
-   			<?php include_once "iftar.php"; echo (printHosts(getRequestedDateKey()));?>
-   			
-   			
+   			<?php include_once "iftar.php"; echo (printHosts(getRequestedDateKey()));?> 			   			
    			</div>
    		</div>
+   		<div class="row">
+ 			<div class="col-sm-offset-2 col-sm-4">
+ 				<p>Up to <?php include_once "iftar.php"; echo ($CONFIG['default_num_hosts']);?> hosts may sign up for each day.  
+ 				If you wish to host a full day, please sign up for all <?php include_once "iftar.php"; echo ($CONFIG['default_num_hosts']);?> slots.</p>
+			</div>
+		</div>
+   		<div class="row">
+ 			<div class="col-sm-5">
+ 				<p><a href="index.php">Back to Iftar Calendar</a></p>
+			</div>
+		</div>
    		<div class="row" id="signupinfo">
    			<div class="col-sm-8">
    				<?php

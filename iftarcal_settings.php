@@ -61,6 +61,14 @@ $CONFIG = array (
 		/////////////////////
 		// APPLICATION CONFIG
 		/////////////////////
+		
+		// masjid name
+		'masjid_name' => 'Upper Westchester Muslim Society',
+
+		// Ramadan start date
+		'ramadan_start_date' => "2014-06-28",
+		// Anticipated Eid date
+		'eid_date' => "2014-07-28",
 
 		// masjid name
 		'masjid_name' => 'Upper Westchester Muslim Society',
@@ -69,15 +77,10 @@ $CONFIG = array (
 		'disable_signup' => false,
 		
 		// default number of host families per day
-		'default_num_hosts' => 2,
+		'default_num_hosts' => 4,
 		// maximum number of host families per day
 		'max_num_hosts' => 4,
 		
-		// Ramadan start date
-		'ramadan_start_date' => "2014-06-28",
-		// Anticipated Eid date
-		'eid_date' => "2014-07-28",
-
 		// special events file
 		'events_file' => "events.dat",
 		

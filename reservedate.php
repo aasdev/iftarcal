@@ -1,39 +1,77 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="iftarcal.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="iftar.js"></script>
-<title>Iftar reservation form</title>
-</head>
-<body bgcolor="#FFFFCC">
-	<div class="calframe">
-  <?php 
-	include "iftar.php";
-	printReservationForm();
- ?>
- <p>Please note the following before signing up: </p>
-      <p><u><b>Number of attendees</b></u><br>
-  We expect roughly 100 attendees insha Allah. Please keep in mind other factors that affect the number attendees, such as weather conditions, and how many friends and family you may have invited.<br>
-    <br>
-    <u><b>Donation</b></u><br>
-  We ask that each hosting family contribute $xx towards the masjid fund to help cover the costs of cleaning and supplies. Please give your donation to the iftar coordinator present who will note it. <br>
-    <br>
-    <u><b>Responsibilities of the Hosts</b></u><br>
-  Please plan to arrive 45 minutes early to set up the tables with the food and plates, cups, napkins, utensils, etc. Please provide dates and water for breaking the fast. Note that UWMS does not have a heating oven.<br>
-      You are expected to be present for the duration of the iftar. At the end of the iftar, please:</p>
-      <ul>
-        <li>Remove left over food from tables</li>
-        <li>Clear and clean the tables</li>
-        <li>Wash all utensils, serving spoons, trays etc. - that you may have used from the kitchen</li>
-        <li>Leave the kitchen tidy and clean</li>
-        <li>Remove all of the food left over. Do not leave it in the kitchen or the refrigerator and please do not discard it.</li>
-        <li>Remove all garbage to the dumpster outside</li>
-        </ul>
-      <p>          <u><b>Further information</b></u><br>
-        Should you require any further information, please contact us at info@xx.org.</p>
-      <p><a href="index.php">Back to Iftar Calendar</a></p>
-      
-	</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iftar Reservation Form</title>
+
+    <!-- Bootstrap -->
+    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+    <!-- link other styles -->
+    <link href="iftarcal.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <div class="container">
+  		<div class="header">
+  			<a href="http://www.uwms.org"><img src="img/uwms_letterhead_announce.gif" alt="Upper Westchester Muslim Society" /></a>
+  		</div>
+  		<div class="row">
+   			<div class="col-sm-8">
+   			<form class="form-horizontal" role="form" id="regform" action="reserve.php" method="POST">
+				<input type="hidden" name="check_submit" value="check_submit">
+					<div class="col-sm-offset-3">
+						<h4 class="form-control-static uwms-form-section">Host signup for <?php include_once "iftar.php"; printRequestedDate(); ?></h4>
+					</div>						
+					<div class="form-group">
+					</div>
+					<div class="form-group">
+  						<label class="col-sm-3 control-label" for="nameInput">Full name:</label>
+  						<div class="col-sm-5">
+  							<input class="form-control input-sm" type="text" name="name" value="" id="nameInput">
+  						</div>
+  					</div>
+  					<div class="form-group">
+  						<label class="col-sm-3 control-label" for="emailInput">Email</label>
+  						<div class="col-sm-5">
+  							<input class="form-control input-sm" type="email" name="email" value="" id="emailInput">
+  						</div>
+  					</div>
+  					<div class="form-group">
+  						<label class="col-sm-3 control-label" for="phoneInput">Telephone</label>
+  						<div class="col-sm-5">
+  							<input class="form-control input-sm" type="tel" name="phone" value="" id="phoneInput">
+  						</div>
+  					</div>
+  					<div class="form-group">
+  						<div class="col-sm-offset-3 col-sm-5">
+  							<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+  						</div>
+  					</div> 					
+			</form>
+   			</div>
+   		</div>
+   		<div class="row" id="signupinfo">
+   			<div class="col-sm-8">
+   				<?php
+   					include_once "iftar.php";
+   					printSignupInfo();
+   				?>
+   			</div>
+   		</div>
+  </div>
+
+	
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
