@@ -728,13 +728,18 @@ function printReservationForm () {
 function printSignupInfo() {
 	global $CONFIG;
 	
-	if (!file_exists($CONFIG['signupinfo_file'])) {
-		iftarcal_log(E_USER_ERROR, "signupinfo file does not exist");
-		return;
+	if (!file_exists($CONFIG['signupinfo_template'])) {
+		iftarcal_log(E_USER_ERROR, "signupinfo template file not found");
+		return ;
 	}
-		
-	echo file_get_contents($CONFIG['signupinfo_file']);
-
+	
+	$smarty = new Smarty();
+	
+	$smarty->assign('expected_attendees', $CONFIG['expected_attendees']);
+	$smarty->assign('total_donation', $CONFIG['donation_per_iftar']);
+	
+	echo $smarty->fetch($CONFIG['signupinfo_template']);
+	
 }
 
 function getContactEmail() {
@@ -923,6 +928,9 @@ function sendEmailConfirmation($key, $host, $hostarray) {
 	$smarty->assign('masjid_name', $CONFIG['masjid_name']);
 	$smarty->assign('contact_email', $CONFIG['contact_email']);
 	$smarty->assign('iftar_hosts', $hostarray);
+	$smarty->assign('expected_attendees', $CONFIG['expected_attendees']);
+	$smarty->assign('total_donation', $CONFIG['donation_per_iftar']);
+	
 	
 	$mailbody = $smarty->fetch($CONFIG['notification_template']);
 	

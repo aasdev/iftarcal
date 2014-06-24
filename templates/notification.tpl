@@ -29,7 +29,7 @@ your family.
 <hr />
 <p>
 <u><b>Number of attendees</b></u><br>
-We expect roughly 100 attendees each day insha Allah.  Please keep
+We expect roughly {$expected_attendees} attendees each day insha Allah.  Please keep
 in mind other factors that affect the number
 attendees, such as weather conditions, and how many friends and family
 you may have invited.
@@ -37,7 +37,7 @@ you may have invited.
 
 <p>
 <u><b>Donation for cleaning</b></u><br>
-We ask that each hosting family contribute $60 towards the masjid fund
+We ask that hosting families contribute a total of ${$total_donation} towards the masjid fund
 to help cover the costs of cleaning and supplies.  Please give your 
 donation to the iftar coordinator present who will record it.
 </p>

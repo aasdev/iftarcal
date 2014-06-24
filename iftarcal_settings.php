@@ -77,11 +77,17 @@ $CONFIG = array (
 		// maximum number of host families per day
 		'max_num_hosts' => 4,
 		
+		// donation amount per iftar
+		'donation_per_iftar' => 120,
+		
+		// expected number of attendees each night
+		'expected_attendees' => 100,
+		
 		// special events file
 		'events_file' => "events.dat",
 		
 		// file with information for hosts (html markup)
-		'signupinfo_file' => "signupinfo.html"
+		'signupinfo_template' => "templates/signupinfo.tpl"
 				
 		
 		);
