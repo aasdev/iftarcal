@@ -36,6 +36,7 @@ $CONFIG = array (
 		
 		// send notifications to those signing up
 		'send_email_notifications' => true,
+		
 		// notifies all hosts whenever there is a change (addition/deletion of a host)
 		'send_to_all_hosts' => true,
 		
