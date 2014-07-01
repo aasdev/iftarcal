@@ -37,10 +37,12 @@
 }
 
 .iftarcal-assigned {
-/* 	font-family: "Courier New", Courier, mono; */
+/* 	font-family: "Courier New", Courier, mono; 
 	font-size: 15px;
-	font-weight: bold;
 	color: #CC0000;
+	*/
+	font-weight: bold;
+	
 }
 
 .helptext {
