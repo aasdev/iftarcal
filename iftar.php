@@ -150,7 +150,7 @@ function checkTable () {
 /******************************************************************/
 function getEntryByKey ($key) {
 	
-	// returns an array containing db contents for the give date key.  returns false
+	// returns an array containing db contents for the given date key.  returns false
 	// on failure. 
 	
 	global $CONFIG;
@@ -227,6 +227,59 @@ function getEntryByKey ($key) {
 	
 	return $entry;
 }
+/******************************************************************/
+function replaceEntryByKey ($key, $entry)
+{
+	// takes an assoc array with host entry elements and writes them into 
+	// the specified date, given by the key paramater.
+	// USE WITH CARE -- this will overwrite existing entry
+	
+	global $CONFIG;
+	
+	// connect to DB
+	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
+	
+	if (! $dbconn) {
+		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
+		die ();
+	}
+	
+	// get a lock on the table
+	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " WRITE";
+	if (mysqli_query ( $dbconn, $query ) === false) {
+		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
+	}
+	
+	$numhosts = $entry['numhosts'];
+	$hosts = serialize($entry['hosts']);
+	$numcoord = $entry['numcoord'];
+	$coordinators = serialize($entry['coordinators']);
+	$numvolun = $entry['numvolun'];
+	$volunteers = serialize($entry['volunteers']);
+	
+	$query = "UPDATE " . $CONFIG['tablename'] . " SET numhosts = '$numhosts', hosts = '$hosts', ";
+	$query .= "numcoord = '$numcoord', coordinators = '$coordinators', ";
+	$query .= "numvolun = '$numvolun', volunteers = '$volunteers' ";
+	$query .= "WHERE date = '$key'";
+	
+	if (!mysqli_query($dbconn, $query)) {
+		iftarcal_log(E_USER_ERROR, "replaceEntryByKey() failed to update database: $query" . " error: " . mysqli_error($dbconn));
+		return false;
+	}
+	
+	// release table lock
+	$query = "UNLOCK TABLES";
+	if (! ($result = mysqli_query ($dbconn,$query))) {
+		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
+	}
+	
+	mysqli_close($dbconn);
+	
+	return true;
+	
+	
+}
+
 
 /******************************************************************/
 
@@ -364,6 +417,11 @@ function printCalendarTable() {
 		// check the DB
 		$query = "SELECT * FROM " . $CONFIG['tablename'] . " WHERE date='$key'";
 		$data = mysqli_query ($dbconn, $query);
+		if (!$data) {
+			iftarcal_log(E_USER_ERROR, "printCalendarEntry(): DB lookup failed for date: $key ... exiting");
+			echo "Sorry, a database error occurred.  Please try again later.\n";
+			return;
+		}
 		if (mysqli_num_rows($data) == 0) {
 			// no row for this date
 			iftarcal_log(E_USER_NOTICE, "No database entry for date: $key ... creating new row");
@@ -427,7 +485,7 @@ function printCalendarTable() {
 		}
 		else {
 			// day is fully assigned
-			print "\t<p class=\"iftarcal-assigned\"> <a href=\"showassigned.php?date=$key\">Assigned</a></p>\n";
+			print "\t<p><a href=\"showassigned.php?date=$key\"  class=\"iftarcal-assigned\">Assigned</a></p>\n";
 		}
 		print "\t</td>\n";
 
@@ -515,44 +573,26 @@ function printRequestedDate () {
 
 /******************************************************************/
 function printHosts ($key) {
+	// returns a formatted HTML string with the hosts for the given date key.
+	// includes CSS styles so caller may need to strip them if they are not wanted
 	
 	global $CONFIG;
 	
-	// connect to DB
-	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
-	
-	if (! $dbconn) {
-		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
-		die ();
-	}
-	
-	// get a lock on the table
-	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " READ";
-	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
-	}
-	
-	$query = "SELECT * FROM " . $CONFIG ['tablename'] . " WHERE date='$key'";
-	$data = mysqli_query ( $dbconn, $query );
-	if (mysqli_num_rows($data) == 0) {
-		// no row for this date
+	$entry = getEntryByKey($key);
+	if (!$entry) {
 		iftarcal_log ( E_USER_ERROR, "printHosts(): Failed to lookup entry for date: $key ..." );
-		return;
-	} else {
-		// found existing entry for this date
-		$row = mysqli_fetch_assoc ( $data );
-		$numhosts = $row ['numhosts'];
-		if ($numhosts > 0) {
-			$hostarray = unserialize($row['hosts']);
-		}
+		return false;
 	}
 	
+	// found existing entry for this date
+	$numhosts = $entry['numhosts'];
+		
 	if ($numhosts == 0) {
 		$cohosts = "<p class=\"iftarhost-display-sm\">None</p>";
 	}
 	else {
 		$cohosts = "";
-		foreach ($hostarray as $host) {
+		foreach ($entry['hosts'] as $host) {
 			$cohosts .= "<p class=\"iftarhost-display-sm\">Co-host: " . $host['name'] . "</p>\n";
 		}
 		
@@ -560,15 +600,6 @@ function printHosts ($key) {
 	
 	iftarcal_log(E_USER_NOTICE, "printHosts(): date: $key, num: $numhosts, cohosts: $cohosts");
 	
-	
-	// release table lock
-	$query = "UNLOCK TABLES";
-	if (! ($result = mysqli_query ($dbconn,$query))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
-	}
-	
-	mysqli_free_result($data);
-	mysqli_close($dbconn);
 	
 	return $cohosts;
 	
@@ -642,90 +673,10 @@ function printAllAssigned ($key) {
 
 
 /******************************************************************/
-function printReservationForm () {
-	global $CONFIG;
-	global $max_slots;
-	
-	iftarcal_log(E_USER_NOTICE, "Received reservation request: " . print_r($_POST['date'], true));
-	if (isset($_POST['date'])) {
-		$key = strip_tags(trim($_POST['date']));
-	}
-	
-	// $submit_array = array_keys ( $_POST ['date'] );
-	// $key = $submit_array [0];
-	$dt = new DateTime ( $key );
-	
-	// connect to DB
-	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
-	
-	if (! $dbconn) {
-		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
-		die ();
-	}
-	
-	// get a lock on the table
-	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " WRITE";
-	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
-	}
-	
-	$query = "SELECT * FROM " . $CONFIG ['tablename'] . " WHERE date='$key'";
-	$data = mysqli_query ( $dbconn, $query );
-	if (mysqli_num_rows($data) == 0) {
-		// no row for this date
-		iftarcal_log ( E_USER_ERROR, "Failed to lookup entry for date: $key ..." );
-		echo "Invalid date.  Please go back and try again or contact the administrators\n";
-		return;
-	} else {
-		// found existing entry for this date
-		$row = mysqli_fetch_assoc ( $data );
-		$numhosts = $row ['numhosts'];
-	}
-  
-	//  any families already signed up -- if yes, show
-
-    if ($numhosts >= $CONFIG['default_num_hosts']) {	// date is taken
-	  	printDateTaken($key);
-		return;
-  	}
-  	
-  	print "<p class=\"iftarformheading\">Iftar signup for " . date_format ( $dt, 'l, F j, Y') . "</p>\n";
-	
-	if ($numhosts > 0) {
-		$hostarray = unserialize($row['hosts']);
-		foreach ($hostarray as $host) {
-			printAssigned ($host, $key); 
-		}
-	}
-	
-	if ($numhosts == 0) {
-		$openslot = 1;
-	} else {
-		$openslot = 2;
-	}
-	// print the reservation form
-	print "<p class=\"iftarformsubheading\">You are signing up as host $openslot of $max_slots</p>\n";
-	// <form name="reservation" method="post" action="reserve.php" >
-	print "<form name=\"reservation\" method=\"post\" action=\"reserve.php\" onsubmit=\"var result = checkReservationForm(this); return result;\">\n";
-	print "<input name=\"date\" type=\"hidden\" id=\"date\" value=\"$key\">\n";
-	print "<p class=\"reservetablefield\">Full name: <input name=\"name\" type=\"text\" id=\"name\" onBlur=\"validateName (this, document.getElementById('name_help'))\" size=\"50\"> <span id=\"name_help\" class=\"helptext\"></span></p>\n";
-	print "<p class=\"reservetablefield\">Email: <input name=\"email\" type=\"text\" id=\"email\" onBlur=\"validateEmail (this, getElementById('email_help'))\" size=\"25\"> <span id=\"email_help\" class=\"helptext\"></span></p>\n";
-	print "<p class=\"reservetablefield\">Phone: <input name=\"phone\" type=\"text\" id=\"phone\" onBlur=\"validatePhone (this, getElementById('phone_help'))\" size=\"12\"> <span id=\"phone_help\" class=\"helptext\"></span></p>\n";
-	print "<input type=\"submit\" name=\"Submit\" value=\"Submit\">";
-	print "</form>\n";
-	// print "<p>Information submitted here will be used only for coordinating the iftar program</p>\n";
-	
-	// release table lock
-	$query = "UNLOCK TABLES";
-	if (! ($result = mysqli_query ($dbconn,$query))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
-	}
-	
-
-	mysqli_close($dbconn);
-}
-/******************************************************************/
 function printSignupInfo() {
+
+	// creates and display an html file from a smarty template with information for hosts
+	
 	global $CONFIG;
 	
 	if (!file_exists($CONFIG['signupinfo_template'])) {
@@ -748,38 +699,6 @@ function getContactEmail() {
 	return ($CONFIG['contact_email']);
 }
 
-
-/******************************************************************/
-function removeWhitespace ($string) {
-	$string = preg_replace('/\s+/', ' ', $string);
-	$string = trim ($string);
-	return ($string);
-}
-
-/******************************************************************/
-function validateForm ($familynum) {
-
-  $name = trim ($_POST["name$familynum"]);
-  $rawphone = ($_POST["phone$familynum"]);
-  $email = trim ($_POST["email$familynum"]);
-
-  if ($name == "") {
-    printError ("Please enter your first and last name");
-    exit;
-  }
-
-  if (VALIDATE_USPHONE($rawphone) == false) {
-    printError ("Please enter your area code and phone number as XXX-XXX-XXXX");
-    exit;
-  }
-
-  if (!eregi ("^([a-z0-9_]|\\-|\\.)+@(([a-z0-9_]|\\-)+\\.)+[a-z]{2,4}$", $email)) {
-    printError ("Please enter a valid email address");
-    exit;
-  }
-
-  return array ($name, $rawphone, $email);
-}
 
 /******************************************************************/
 function reserve () {
@@ -912,6 +831,49 @@ function reserve () {
 	}
  */
 }
+/******************************************************************/
+function removeHost ($key, $refid)
+{
+	$hostentry = getEntryByKey($key);
+	if (!$hostentry) {
+		iftarcal_log(E_USER_ERROR, "removeHost(): Could not retrieve entry for date $key");
+		return false;
+	}
+	if ($hostentry['numhosts'] == 0) {
+		// this would be unexpected
+		iftarcal_log(E_USER_WARNING, "removeHost(): No hosts to remove for date $key");
+		return false;
+	}
+	
+	$found = false;
+	// find the index of the host with the given refid
+	for ($i = 0; $i < count($hostentry['hosts']); $i++) {
+		if ($hostentry['hosts'][$i]['refid'] == $refid) {
+			// found the host -- remove from the array
+			$found = true;
+			array_splice($hostentry['hosts'], $i, 1);
+			// decrement number of hosts
+			$hostentry['numhosts'] -= 1;
+			break;
+		}	
+	}
+
+	if ($found) {
+		if (!replaceEntryByKey($key, $hostentry)) {
+			iftarcal_log(E_USER_ERROR, "removeHost(): could not replace host entry (refid: $refid date $key)");
+			return false;
+		}
+		iftarcal_log(E_USER_NOTICE, "removeHost(): removed host with refid: $refid on date $key");
+		return true;
+		
+	}
+	else {
+		iftarcal_log(E_USER_NOTICE, "removeHost(): did not find host with refid: $refid on date $key");
+		return false;
+	}
+	
+	
+}
 
 /******************************************************************/
 function sendEmailConfirmation($key, $host, $hostarray) {
@@ -933,10 +895,6 @@ function sendEmailConfirmation($key, $host, $hostarray) {
 	
 	
 	$mailbody = $smarty->fetch($CONFIG['notification_template']);
-	
-	if (DEBUG == true) {
-		echo $mailbody;
-	}
 	
 	$mail = new PHPMailer;
 	
@@ -960,7 +918,7 @@ function sendEmailConfirmation($key, $host, $hostarray) {
 			foreach ($hostarray as $h) {
 				if ($h['email'] === $host['email'])
 					continue;
-				$mail->addCC($h['name'], $h['name']);
+				$mail->addCC($h['email'], $h['name']);
 			}
 		}
 	}
@@ -991,87 +949,6 @@ function printDateTaken ($datestr) {
    
 }
 
-/******************************************************************/
-function printAssignmentTable () {
-
-  global $dbname, $tablename, $dbuser, $dbpw;
-
-  $namewidth = 400;
-  $datewidth = 200;
-  $phonewidth = 200;
-  $emailwidth = 200;
-  $cellheight = 50;
-
-
-  // print table headers
-
-  print "<table width=\"100%\" border=\"1\">\n";
-
-  print "<tr valign=\"top\">\n";
-  print "\t<td width=\"$datewidth\" height=\"$cellheight\" class=\"assigntable\">Date</td>\n";
-  print "\t<td width=\"$namewidth\" height=\"$cellheight\" class=\"assigntable\">Name</td>\n";
-  print "\t<td width=\"$phonewidth\" height=\"$cellheight\" class=\"assigntable\">Phone</td>\n";
-  print "\t<td width=\"$emailwidth\" height=\"$cellheight\" class=\"assigntable\">Email</td>\n";
-  print "</tr>\n";
-
-  // connect to DB
-  if (!($connection = @mysql_pconnect("localhost","$dbuser","$dbpw"))) {
-    notifyError ("DB connect failed\n");
-    die ("Cannot connect to mySQL DB.  Please try again later.\n");
-  }
-  if (!(mysql_select_db("$dbname"))) {
-    printMysqlError ();
-  }
-  $query = "LOCK TABLES $tablename READ";
-  if (!($result = @mysql_query ($query, $connection))) {
-    printMysqlError ();
-  }
-
-  // get rows for all dates
-
-  if (!($result = @mysql_query ("SELECT * FROM $tablename ORDER BY date ASC", $connection)))
-      printMysqlError();
-
-  while ($row = mysql_fetch_array($result)) {
-      print "<tr valign=\"top\">\n";
-      print "\t<td rowspan=\"2\" width=\"$datewidth\" height=\"$cellheight\" class=\"assigntable\">" . $row["date"] . "</td>\n";
-
-      if ($row["name1"]=="") {
-	// assume this means that this slot is blank
-	print "\t<td width=\"$namewidth\" height=\"$cellheight\" class=\"assigntable\">" . "&nbsp</td>\n";
-	print "\t<td width=\"$phonewidth\" height=\"$cellheight\" class=\"assigntable\">" . "&nbsp</td>\n";
-	print "\t<td width=\"$emailwidth\" height=\"$cellheight\" class=\"assigntable\">" . "&nbsp</td>\n";
-      }
-      else {
-	print "\t<td width=\"$namewidth\" height=\"$cellheight\" class=\"assigntable\">" . $row["name1"] . "</td>\n";
-	print "\t<td width=\"$phonewidth\" height=\"$cellheight\" class=\"assigntable\">" . $row["phone1"] . "</td>\n";
-	print "\t<td width=\"$emailwidth\" height=\"$cellheight\" class=\"assigntable\">" . $row["email1"] . "</td>\n";
-      }
-      print "</tr>\n";
-      if ($row["name2"]=="") {
-	print "\t<td width=\"$namewidth\" height=\"$cellheight\" class=\"assigntable\">" . "&nbsp</td>\n";
-	print "\t<td width=\"$phonewidth\" height=\"$cellheight\" class=\"assigntable\">" . "&nbsp</td>\n";
-	print "\t<td width=\"$emailwidth\" height=\"$cellheight\" class=\"assigntable\">" . "&nbsp</td>\n";
-
-      }
-      else {
-	print "\t<td width=\"$namewidth\" height=\"$cellheight\" class=\"assigntable\">" . $row["name2"] . "</td>\n";
-	print "\t<td width=\"$phonewidth\" height=\"$cellheight\" class=\"assigntable\">" . $row["phone2"] . "</td>\n";
-	print "\t<td width=\"$emailwidth\" height=\"$cellheight\" class=\"assigntable\">" . $row["email2"] . "</td>\n";
-      }
-      print "</tr>\n";
-  }
-
-  print "</table>";
-
-  // release table lock
-  $query = "UNLOCK TABLES";
-  if (!($result = @mysql_query ($query, $connection))) {
-    printMysqlError ();
-  }
-
-}
-
 
 /******************************************************************/
 function printError ($errstring) {
@@ -1100,6 +977,7 @@ function notifyError ($errstring) {
   @mail ($mailto,$mailsubj,$mailmsg,$mailfrom);
 }
 
+/******************************************************************/
 function iftarcal_log ($loglevel, $message) {
 	global $CONFIG;
 	
@@ -1154,49 +1032,7 @@ function iftarcal_log ($loglevel, $message) {
 		}
 		
 	}
-			
-	
-	
 }
-
-
-////////////////////////////////////////
-//
-// PHP function to validate US phone number:
-// (c) 2003 Peter Kionga-Kamau,
-// http://www.pmkmedia.com
-// No restrictions have been placed on
-// the use of this code
-//
-// Updated Friday Jan 9 2004 to optionally ignore
-// the area code:
-//
-// Input: a single string parameter and an
-//  optional boolean variable (default=true)
-// Output: 10 digit telephone number
-// or boolean false(0)
-//
-// The function will return the numerical part
-// of the alphanumeric string parameter with
-// the following sequence of characters:
-// any number of spaces [optional], a single
-// open parentheses [optional], any number of
-// spaces [optional], 3 digits (area
-// code), any number of spaces [optional], a
-// single close parentheses [optional], a single
-// dash [optional], any number of spaces
-// [optional], 3 digits, any number of spaces
-// [optional], a single dash [optional], any
-// number of spaces [optional], 4 digits, any
-// number of spaces [optional]:
-//
-////////////////////////////////////////
-function VALIDATE_USPHONE($phonenumber,$useareacode=true)
-{
-if ( preg_match("/^[ ]*[(]{0,1}[ ]*[0-9]{3,3}[ ]*[)]{0,1}[-]{0,1}[ ]*[0-9]{3,3}[ ]*[-]{0,1}[ ]*[0-9]{4,4}[ ]*$/",$phonenumber) || (preg_match("/^[ ]*[0-9]{3,3}[ ]*[-]{0,1}[ ]*[0-9]{4,4}[ ]*$/",$phonenumber) && !$useareacode)) return eregi_replace("[^0-9]", "", $phonenumber);
-return false;
-}
-
 
 ?>
 
