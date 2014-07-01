@@ -32,7 +32,7 @@ function buildHostTable ()
 			if ($entry['numhosts'] > 0) {
 				$hoststring = "<p>";
 				foreach ($entry['hosts'] as $h) {
-					$hoststring .= sprintf ("%s (email: %s phone: %s)<br>", $h['name'], $h['email'], $h['phone']);
+					$hoststring .= sprintf ("%s (email: %s phone: %s) refid: %s<br>", $h['name'], $h['email'], $h['phone'], $h['refid']);
 				}
 				$hoststring .= "</p>";
 			}
@@ -48,7 +48,7 @@ function buildHostTable ()
 				'volunteers' => $entry['volunteers']
 			);
 		}
-		iftarcal_log(E_USER_NOTICE, "buildHostTable(): entry $i: " . print_r($rowarray, true));
+		// iftarcal_log(E_USER_NOTICE, "buildHostTable(): entry $i: " . print_r($rowarray, true));
 		$returndata[] = $rowarray;
 	}
 
