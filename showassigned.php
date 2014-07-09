@@ -29,11 +29,22 @@
    			</div>
    		</div>
    		<div class="row">
-   			<div class="col-sm-8 col-sm-offset-1">
+   			<div class="col-sm-7 col-sm-offset-1">
     	    	<?php 
 					include_once "iftar.php";
         			echo printAllAssigned($_GET['date']);
  				?>
+ 			</div>
+ 			<div class="col-sm-2">
+ 				<?php
+   					if (getEntryByKey(getRequestedDateKey())['numhosts'] > 0) {
+						echo "<p>";
+   						echo "<a href=\"edithosts.php?date=" . getRequestedDateKey() . "\">";
+   						echo "<span class=\"iftarcal-edit-button\"><span class=\"glyphicon glyphicon-edit\"></span></span>";
+   						echo "</a>";
+   						echo "</p>";
+   					}
+   				?>
  			</div>
  		</div>
  		<div class="row">

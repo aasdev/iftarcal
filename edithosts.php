@@ -34,7 +34,7 @@
    				include_once 'iftar.php';
    				echo printEditHosts(getRequestedDateKey());
    				?>
-   				<p>Any changes or removals require the unique reference id</p>
+   				<p>Any changes or removals require the reference id</p>
    			</div>
    			
    			<div id="edit-modal" class="modal fade" role="dialog">

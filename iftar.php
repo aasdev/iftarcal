@@ -160,7 +160,7 @@ function getEntryByKey ($key) {
 	
 	if (! $dbconn) {
 		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
-		die ();
+		return false;
 	}
 	
 	// get a lock on the table
@@ -553,8 +553,17 @@ function printDate () {
 
 /******************************************************************/
 function getRequestedDateKey () {
-	$key = trim($_POST['date']);
-	return $key;
+	if (isset($_POST['date'])) {
+		$key = trim($_POST['date']);
+		return $key;
+	}
+	if (isset($_GET['date'])) {
+		$key = trim($_GET['date']);
+		return $key;
+	}
+
+	// otherwise returns undefined
+	
 }
 
 /******************************************************************/
@@ -602,6 +611,40 @@ function printHosts ($key) {
 	
 	
 	return $cohosts;
+	
+}
+
+function printEditHosts ($key) {
+	// returns a string with edit buttons for each host to display on web pages
+	
+	global $CONFIG;
+	
+	$entry = getEntryByKey($key);
+	if (!$entry) {
+		iftarcal_log ( E_USER_ERROR, "printEditHosts(): Failed to lookup entry for date: $key ..." );
+		return;
+	}
+
+	if ($entry['numhosts'] == 0) {
+		return;
+	}
+	
+	$html = "";
+	for ($i = 0; $i < $entry['numhosts']; $i++) {
+		$html .= "<p>\n";
+		// first the buttons		
+		$html .= "<button class=\"btn btn-default btn-sm\" data-toggle=\"modal\" data-target=\"#edit-modal\" data-host-index=\"$i\">";
+		$html .= "<span class=\"iftarcal-edit-button\"><span class=\"glyphicon glyphicon-edit\"></span></span>";
+		$html .= "</button>";
+		$html .= "<button class=\"btn btn-default btn-sm\" data-toggle=\"modal\" data-target=\"#remove-modal\" data-host-index=\"$i\">";
+		$html .= "<span class=\"iftarcal-remove-button\"><span class=\"glyphicon glyphicon-remove\"></span></span>";
+		$html .= "</button>";
+		// now the host name
+		$html .= "  <span class=\"iftarcal-host-display\">" . $entry['hosts'][$i]['name'] . "</span>\n";
+		$html .= "</p>\n";
+	}
+	
+	return $html;
 	
 }
 
@@ -872,10 +915,73 @@ function removeHost ($key, $refid)
 		return false;
 	}
 	
+}
+
+/******************************************************************/
+function sendEmailTemplate ($key, $host, $hostarray, $body, $subject) {
+	// send an email using a populated html file to the given host with the given subject line
+	// if $host is not NULL, the mail is addressed to the specified host
+	// if $host is NULL, the mail is addressed to all hosts in $hostarray
+	
+	global $CONFIG;
+	
+	$mail = new PHPMailer;
+	
+	$mailbody = $body;
+	
+	$mail->isSMTP();                        // Set mailer to use SMTP
+	$mail->Host = $CONFIG['mailhost'];				// Specify server
+	$mail->Port = 465;						// SMTP server port
+	$mail->SMTPAuth = true;                 // Enable SMTP authentication
+	$mail->Username = $CONFIG['mailusername'];        // SMTP username
+	$mail->Password = $CONFIG['mailpw'];              // SMTP password
+	$mail->SMTPSecure = 'ssl';              // Enable encryption, 'ssl' also accepted
+	
+	$mail->From = $CONFIG['mailfromaddr'];
+	$mail->FromName = $CONFIG['mailfromname'];
+	
+	if (DEBUG == true) {
+		// send email only to debug email addr
+		$mail->addAddress($CONFIG['debugmail']);  
+	}
+	elseif ($host == NULL) {
+		// send to all hosts
+		foreach ($hostarray as $h) {
+			$mail->addAddress($h['email'], $h['name']);  // Add a recipient
+		}
+	}
+	else {
+		// send to specified host
+		$mail->addAddress($host['email'], $host['name']);  // Add a recipient
+		if ($CONFIG['send_to_all_hosts']) {
+			foreach ($hostarray as $h) {
+				if ($h['email'] === $host['email'])
+					continue;
+				$mail->addCC($h['email'], $h['name']);
+			}
+		}
+	}
+	
+	$mail->isHTML (true);
+	
+	$mail->Subject = $subject;
+	
+	$mail->addEmbeddedImage("img/uwms_letterhead_announce.gif", "uwmsletterhead");
+	
+	$mail->Body = $mailbody;
+	if(!$mail->send()) {
+		iftarcal_log(E_USER_ERROR, "sendEmailNotification(): Message could not be sent: " . $mail->ErrorInfo);
+		return false;
+	}
+	else {
+		iftarcal_log(E_USER_NOTICE, "sendEmailNotification(): Sent email notification to "  . $host['name'] . "(" . $host['email'] . ") for $key");
+		return true;
+	}
 	
 }
 
 /******************************************************************/
+
 function sendEmailConfirmation($key, $host, $hostarray) {
 	
 	global $CONFIG;
@@ -893,48 +999,12 @@ function sendEmailConfirmation($key, $host, $hostarray) {
 	$smarty->assign('expected_attendees', $CONFIG['expected_attendees']);
 	$smarty->assign('total_donation', $CONFIG['donation_per_iftar']);
 	
-	
 	$mailbody = $smarty->fetch($CONFIG['notification_template']);
 	
-	$mail = new PHPMailer;
+	$subject = "Iftar signup confirmation for $key";
 	
-	$mail->isSMTP();                        // Set mailer to use SMTP
-	$mail->Host = $CONFIG['mailhost'];				// Specify server
-	$mail->Port = 465;						// SMTP server port
-	$mail->SMTPAuth = true;                 // Enable SMTP authentication
-	$mail->Username = $CONFIG['mailusername'];        // SMTP username
-	$mail->Password = $CONFIG['mailpw'];              // SMTP password
-	$mail->SMTPSecure = 'ssl';              // Enable encryption, 'ssl' also accepted
-	
-	$mail->From = $CONFIG['mailfromaddr'];
-	$mail->FromName = $CONFIG['mailfromname'];
-
-	if (DEBUG == true) {
-		$mail->addAddress($CONFIG['debugmail']);  // Add a recipient
-	}
-	else {
-		$mail->addAddress($host['email'], $host['name']);  // Add a recipient
-		if ($CONFIG['send_to_all_hosts']) {
-			foreach ($hostarray as $h) {
-				if ($h['email'] === $host['email'])
-					continue;
-				$mail->addCC($h['email'], $h['name']);
-			}
-		}
-	}
-	$mail->isHTML (true);
-	$mail->Subject = "Iftar signup confirmation for $key";
-	
-	$mail->addEmbeddedImage("img/uwms_letterhead_announce.gif", "uwmsletterhead");
-	
-	$mail->Body = $mailbody;
-	if(!$mail->send()) {
-		iftarcal_log(E_USER_ERROR, "sendEmailNotification(): Message could not be sent: " . $mail->ErrorInfo);
-		echo 'Email could not be sent.  Mailer Error: ' . $mail->ErrorInfo;
-		exit;
-	}
-	else {
-		iftarcal_log(E_USER_NOTICE, "sendEmailNotification(): Sent email notification to "  . $host['name'] . "(" . $host['email'] . ") for $key");
+	if (!sendEmailTemplate($key, $host, $hostarray, $mailbody, $subject)) {
+		echo "Could not send confirmation email";
 	}
 	
 }

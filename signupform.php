@@ -60,7 +60,16 @@
    			</div>
    			<div class="col-sm-4">
    			<p class="iftarhost-display-sm">Current hosts for <?php include_once "iftar.php"; printRequestedDate(); ?></p>
-   			<?php include_once "iftar.php"; echo (printHosts(getRequestedDateKey()));?> 			   			
+   			<?php
+   			include_once "iftar.php"; echo (printHosts(getRequestedDateKey()));
+   			if (getEntryByKey(getRequestedDateKey())['numhosts'] > 0) {
+				echo "<p>";
+				echo "<a href=\"edithosts.php?date=" . getRequestedDateKey() . "\">";
+				echo "<span class=\"iftarcal-edit-button\"><span class=\"glyphicon glyphicon-edit\"></span></span>";
+				echo "</a>";
+				echo "</p>";
+   			}
+   			?> 			   			
    			</div>
    		</div>
    		<div class="row">

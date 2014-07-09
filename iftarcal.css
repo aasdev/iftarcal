@@ -165,3 +165,18 @@
 	font-size: 14px;
 	font-weight: bold;
 }
+
+.iftarcal-host-display {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.iftarcal-remove-button {
+	font-size: 12px;
+	color: darkred;
+}
+
+.iftarcal-edit-button {
+	font-size: 12px;
+	color: darkblue;
+}

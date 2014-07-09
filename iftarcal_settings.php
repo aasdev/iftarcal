@@ -37,7 +37,10 @@ $CONFIG = array (
 		// send notifications to those signing up
 		'send_email_notifications' => true,
 		
-		// notifies all hosts whenever there is a change (addition/deletion of a host)
+		// send email notifications when hosts are updated
+		'send_email_on_update' => true,
+		
+		// notifies all hosts whenever there is a change (addition/deletion/update of a host)
 		'send_to_all_hosts' => true,
 		
 		// email addr for administrator notifications, including error notifcations
@@ -52,8 +55,14 @@ $CONFIG = array (
 		// email addr for debugging messages
 		'debugmail' => 'anees.shaikh@gmail.com',
 		
-		// confirmation email for families signing up -- ipmlemented as a Smarty template
-		'notification_template' => "templates/notification.tpl",	
+		// confirmation email for families signing up -- implemented as a Smarty template
+		'notification_template' => "templates/notification.tpl",
+
+		// email template for update notifications - implemented as a Smarty template
+		'update_template' => "templates/updateconf.tpl",
+		
+		// email template for removal notifications - implemented as a Smarty template
+		'remove_template' => "templates/removeconf.tpl",
 		
 		/////////////////////
 		// APPLICATION CONFIG
