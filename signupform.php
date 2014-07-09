@@ -62,7 +62,10 @@
    			<p class="iftarhost-display-sm">Current hosts for <?php include_once "iftar.php"; printRequestedDate(); ?></p>
    			<?php
    			include_once "iftar.php"; echo (printHosts(getRequestedDateKey()));
-   			if (getEntryByKey(getRequestedDateKey())['numhosts'] > 0) {
+   			$key = getRequestedDateKey();
+   			$entry = getEntryByKey($key);
+   			$numhosts = $entry['numhosts'];
+   			if ($numhosts > 0) {
 				echo "<p>";
 				echo "<a href=\"edithosts.php?date=" . getRequestedDateKey() . "\">";
 				echo "<span class=\"iftarcal-edit-button\"><span class=\"glyphicon glyphicon-edit\"></span></span>";
