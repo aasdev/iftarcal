@@ -37,7 +37,10 @@
  			</div>
  			<div class="col-sm-2">
  				<?php
-   					if (getEntryByKey(getRequestedDateKey())['numhosts'] > 0) {
+ 					$key = getRequestedDateKey();
+ 					$entry = getEntryByKey($key);
+ 					$numhosts = $entry['numhosts'];
+   					if ($numhosts > 0) {
 						echo "<p>";
    						echo "<a href=\"edithosts.php?date=" . getRequestedDateKey() . "\">";
    						echo "<span class=\"iftarcal-edit-button\"><span class=\"glyphicon glyphicon-edit\"></span></span>";
