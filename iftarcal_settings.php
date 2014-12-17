@@ -26,13 +26,13 @@ $CONFIG = array (
 		// EMAIL CONFIG
 		///////////////
 		
-		'mailhost' => 's1-chicago.accountservergroup.com',	// SMTP hostname
-		'mailport' => 465,									// port for mailserver
-		'mailusername' => 'exec-committee@uwms.org',        // SMTP username
-		'mailpw' => 'uwms2exec',                      // SMTP password
+		'mailhost' => 'smtp.mail.com',	// SMTP hostname
+		'mailport' => 25,									// port for mailserver
+		'mailusername' => 'user@mail.com',        // SMTP username
+		'mailpw' => 'mailpw',                      // SMTP password
 		
-		'mailfromname' => 'UWMS',  // name in From: field of email notifications
-		'mailfromaddr' => 'exec-committee@uwms.org',  // From: addr for email notifications
+		'mailfromname' => 'FromName',  // name in From: field of email notifications
+		'mailfromaddr' => 'fromaddr@mail.org',  // From: addr for email notifications
 		
 		// send notifications to those signing up
 		'send_email_notifications' => true,
@@ -44,16 +44,16 @@ $CONFIG = array (
 		'send_to_all_hosts' => true,
 		
 		// email addr for administrator notifications, including error notifcations
-		'admin_email_notifications' => 'anees.shaikh@gmail.com',
+		'admin_email_notifications' => 'adminuser@mail.com',
 		
 		// send email to admin for errors
 		'email_notify_errors' => false,
 		
 		// contact email for questions, etc.
-		'contact_email' => 'info@uwms.org',
+		'contact_email' => 'info@mail.com',
 		
 		// email addr for debugging messages
-		'debugmail' => 'anees.shaikh@gmail.com',
+		'debugmail' => 'adminuser@mail.com',
 		
 		// confirmation email for families signing up -- implemented as a Smarty template
 		'notification_template' => "templates/notification.tpl",
@@ -69,7 +69,7 @@ $CONFIG = array (
 		/////////////////////
 		
 		// masjid name
-		'masjid_name' => 'Upper Westchester Muslim Society',
+		'masjid_name' => 'Muslim Society',
 
 		// Ramadan start date
 		'ramadan_start_date' => "2014-06-28",
@@ -77,7 +77,7 @@ $CONFIG = array (
 		'eid_date' => "2014-07-28",
 
 		// masjid name
-		'masjid_name' => 'Upper Westchester Muslim Society',
+		'masjid_name' => 'Muslim Society',
 
 		// switch to disable the signup calendar
 		'disable_signup' => false,
