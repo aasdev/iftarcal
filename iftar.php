@@ -70,7 +70,7 @@ function readSpecialEvents () {
 /******************************************************************/
 function calcNumRamadanDays () {
 	global $CONFIG;
-	
+
 	// first compute how many days in Ramadan
 	$dtstart = new DateTime ( $CONFIG ['ramadan_start_date'] );
 	$dtend = new DateTime ( $CONFIG ['eid_date'] );
@@ -79,96 +79,33 @@ function calcNumRamadanDays () {
 	// compute the difference betw start and end dates
 	$interval = $dtend->diff ( $dtstart );
 	$numdays = $interval->d;
-	
+
 	return $numdays;
-	
-} 
 
-/******************************************************************/
-
-function checkTable () {
-
-	global $CONFIG;
-
-    // connect to DB
-    $dbconn = mysqli_connect ($CONFIG['dbserver'], $CONFIG['dbuser'], $CONFIG['dbpw'], $CONFIG['dbname']) or die ("Error connecting to database: " . mysqli_error($dbconn));
-
-    if (!$dbconn) {
-    	iftarcal_log (E_USER_ERROR, "Can't connect to db " . $CONFIG['dbname'] . mysqli_connect_error());
-    	die;
-    }
-		
-	// get a lock on the table
-	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " WRITE";
-	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
-	}
-	
-	$query = "SELECT COUNT(*) FROM " . $CONFIG ['tablename'];
-	if (! ($result = mysqli_query ( $dbconn, $query ))) {
-		iftarcal_log ( E_USER_ERROR, "Can't query count for table " . $CONFIG ['tablename'] . mysqli_connect_error () );
-	} else {
-		$row = mysql_fetch_row ( $result );
-	}
-	
-	// how many rows in the DB?
-	if ($row [0] == 0) {
-		iftarcal_log ( E_USER_NOTICE, "Table " . $CONFIG ['tablename'] . " is empty. Populating ..." );
-		// populate table
-		
-		// first compute how many days in Ramadan
-		$numdays = calcNumRamadanDays();
-		
-		$dtindex = new DateTime ( $CONFIG ['ramadan_start_date'] );
-		for($i = 0; $i < $numdays; $i ++) {
-			// $ts = mktime (13, 0, 0, $startmon, ($startdate + $i), $startyear);
-			$key = $dtindex->format ( 'Y-m-d' );
-			$query = "INSERT INTO " . $CONFIG ['tablename'] . " VALUES ('$key', 0, NULL)";
-			iftarcal_log ( E_USER_NOTICE, "$query" );
-			if (mysqli_query ( $dbconn, $query ) === true && mysqli_affected_rows ( $dbconn ) == 1) {
-				// success
-				echo "successful insert\n";
-			} else {
-				iftarcal_log ( E_USER_ERROR, "Insert failed: $query -- " . mysqli_connect_error () );
-			}
-			// increment the date
-			$dtindex->add ( new DateInterval ( 'P1D' ) );
-		}
-	}
-	
-	mysqli_free_result ( $result );
-	
-	// release table lock
-	$query = "UNLOCK TABLES";
-	if (! ($result = mysqli_query ($dbconn,$query))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
-	}
-	
-	
-	mysqli_close($dbconn);
 }
+
 /******************************************************************/
 function getEntryByKey ($key) {
-	
+
 	// returns an array containing db contents for the given date key.  returns false
-	// on failure. 
-	
+	// on failure.
+
 	global $CONFIG;
-	
+
 	// connect to DB
 	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
-	
+
 	if (! $dbconn) {
 		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
 		return false;
 	}
-	
+
 	// get a lock on the table
 	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " READ";
 	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_error ($dbconn) );
 	}
-	
+
 	$query = "SELECT * FROM " . $CONFIG ['tablename'] . " WHERE date='$key'";
 	$data = mysqli_query ( $dbconn, $query );
 	if (mysqli_num_rows($data) == 0) {
@@ -179,9 +116,9 @@ function getEntryByKey ($key) {
 		// found existing entry for this date
 		$row = mysqli_fetch_assoc ( $data );
 	}
-	
+
 	$entry = array();
-	
+
 	$entry['key'] = $key;
 	$entry['numhosts'] = $row['numhosts'];
 	if ($row['numhosts'] > 0) {
@@ -193,18 +130,18 @@ function getEntryByKey ($key) {
 	else {
 		$entry['hosts'] = NULL;  // initialize to an empty array
 	}
-	
-	$entry['numcoord'] = $row['numcoord']; 
+
+	$entry['numcoord'] = $row['numcoord'];
 	if ($row['numcoord'] > 0) {
 		$coordarray = unserialize($row['coordinators']);
 		foreach ($coordarray as $coord) {
-			$entry['coordinators'][] = $coord; 
+			$entry['coordinators'][] = $coord;
 		}
 	}
 	else {
 		$entry['coordinators'] = NULL;
 	}
-	
+
 	$entry['numvolun'] = $row['numvolun'];
 	if ($row['numvolun'] > 0) {
 		$volunarray = unserialize($row['volunteers']);
@@ -215,69 +152,69 @@ function getEntryByKey ($key) {
 	else {
 		$entry['volunteers'] = NULL;
 	}
-	
+
 	// release table lock
 	$query = "UNLOCK TABLES";
 	if (! ($result = mysqli_query ($dbconn,$query))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_error ($dbconn) );
 	}
-	
+
 	mysqli_free_result($data);
 	mysqli_close($dbconn);
-	
+
 	return $entry;
 }
 /******************************************************************/
 function replaceEntryByKey ($key, $entry)
 {
-	// takes an assoc array with host entry elements and writes them into 
+	// takes an assoc array with host entry elements and writes them into
 	// the specified date, given by the key paramater.
 	// USE WITH CARE -- this will overwrite existing entry
-	
+
 	global $CONFIG;
-	
+
 	// connect to DB
 	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
-	
+
 	if (! $dbconn) {
 		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
 		die ();
 	}
-	
+
 	// get a lock on the table
 	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " WRITE";
 	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_error ($dbconn) );
 	}
-	
+
 	$numhosts = $entry['numhosts'];
 	$hosts = serialize($entry['hosts']);
 	$numcoord = $entry['numcoord'];
 	$coordinators = serialize($entry['coordinators']);
 	$numvolun = $entry['numvolun'];
 	$volunteers = serialize($entry['volunteers']);
-	
+
 	$query = "UPDATE " . $CONFIG['tablename'] . " SET numhosts = '$numhosts', hosts = '$hosts', ";
 	$query .= "numcoord = '$numcoord', coordinators = '$coordinators', ";
 	$query .= "numvolun = '$numvolun', volunteers = '$volunteers' ";
 	$query .= "WHERE date = '$key'";
-	
+
 	if (!mysqli_query($dbconn, $query)) {
 		iftarcal_log(E_USER_ERROR, "replaceEntryByKey() failed to update database: $query" . " error: " . mysqli_error($dbconn));
 		return false;
 	}
-	
+
 	// release table lock
 	$query = "UNLOCK TABLES";
 	if (! ($result = mysqli_query ($dbconn,$query))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_error ($dbconn) );
 	}
-	
+
 	mysqli_close($dbconn);
-	
+
 	return true;
-	
-	
+
+
 }
 
 
@@ -297,16 +234,16 @@ function printDays() {
 
 /******************************************************************/
 function createNewDateRow ($key, $dbconn) {
-	
+
 	global $CONFIG;
-	
-	$query = "INSERT INTO " . $CONFIG ['tablename'] . " VALUES ('$key', 0, NULL)";
+
+	$query = "INSERT INTO " . $CONFIG ['tablename'] . " VALUES ('$key', 0, NULL, 0, NULL, 0, NULL)";
 	iftarcal_log ( E_USER_NOTICE, "createNewDateRow: $query" );
 	if (mysqli_query ( $dbconn, $query ) === true && mysqli_affected_rows ( $dbconn ) == 1) {
 		// success
 		return true;
 	} else {
-		iftarcal_log ( E_USER_ERROR, "Insert failed: $query -- " . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "Insert failed: $query -- " . mysqli_error ($dbconn) );
 		return false;
 	}
 }
@@ -322,13 +259,13 @@ function printCalendarTable() {
 	global $max_slots;
 	global $disable;
 	global $events;
-	
+
 	if ($CONFIG ['disable_signup'] == true) {
 		print "<h2>Iftar signup calendar is temporarily unavailable</h2>\n";
 		print "<p>Please check back later to see the calendar insha Allah</p>\n";
 		return;
 	}
-	
+
 	// print Calendar headings
 	print "<form action=\"signupform.php\" method=\"post\"><table class=\"table table-bordered iftarcal-table\">\n";
 	print "<tr>\n";
@@ -340,47 +277,47 @@ function printCalendarTable() {
 	print "\t<th class=\"iftarcal-table-cell dateheader\">Fri</th>\n";
 	print "\t<th class=\"iftarcal-table-cell dateheader\">Sat</th>\n";
 	print "</tr>\n";
-	
+
 	print "<tr class=\"iftarcal-table-row\">\n";
-	
+
 	$dtstart = new DateTime ( $CONFIG ['ramadan_start_date'] );
-	
+
 	// print leading cols, if any
 	$firstdate = date_format ( $dtstart, 'w');
 	// iftarcal_log(E_USER_NOTICE, "leading columns for first day ($firstdate): " . ($firstdate % 7));
 	for($j = 0; $j < ($firstdate % 7); $j ++) {
 		print "\t<td class=\"iftarcal-table-cell\"></td>\n";
 	}
-	
+
 	// connect to DB
 	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
-	
+
 	if (! $dbconn) {
 		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
 		die ();
 	}
-	
+
 	// get a lock on the table
 	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " WRITE";
 	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_error ($dbconn) );
 	}
-		
+
 	// start printing calendar cells
 	$currentmon = "";
 	$currenthmon = "";
 	$ramadandays = calcNumRamadanDays();
 	// iftarcal_log(E_USER_NOTICE, "calcNumRamadanDays returned $ramadandays");
-	
+
 	$dtcurrent = new DateTime($CONFIG['ramadan_start_date']);
 	// iftarcal_log(E_USER_NOTICE, "Starting printCalendarTable from date ". date_format($dtcurrent, 'Y-m-d'));
 	for($i = 0; $i <= $ramadandays; $i++) {
-		
+
 		$day = date_format ( $dtcurrent, 'w');
 		$mon = date_format ( $dtcurrent, 'M');
 		$date = date_format ( $dtcurrent, 'j');
 		$hmon = "Ramadan";
-		
+
 		$col = $day % 7;
 		// iftarcal_log(E_USER_NOTICE, "current date: " . date_format($dtcurrent, 'Y-m-d') . " (d: $day m: $mon dt: $date)" . " col: $col");
 		if ($col == 0) {
@@ -388,15 +325,15 @@ function printCalendarTable() {
 			print "</tr>\n";
 			print "<tr class=\"iftarcal-table-row\">\n";
 		}
-		
-		
+
+
 		// create DB key
 		$key = date_format ( $dtcurrent, 'Y-m-d');
-		
-		
-		
+
+
+
 		// figure out what the contents of the cell will be
-		
+
 		// what gregorian date to print
 		if ($mon == $currentmon)
 			$gregdate = "$date";
@@ -411,9 +348,9 @@ function printCalendarTable() {
 			$hijdate = "$hmon " . ($i + 1);
 			$currenthmon = $hmon;
 		}
-		
+
 		// figure out if this date is avail for reservation
-		
+
 		// check the DB
 		$query = "SELECT * FROM " . $CONFIG['tablename'] . " WHERE date='$key'";
 		$data = mysqli_query ($dbconn, $query);
@@ -435,7 +372,7 @@ function printCalendarTable() {
 				$row = mysqli_fetch_assoc($data);
 				$avail = $CONFIG['default_num_hosts'] - $row ['numhosts'];
 		}
-		
+
 
 		// check for special events -- no reservations on these dates
 		if (array_key_exists ( $key, $events )) {
@@ -445,7 +382,7 @@ function printCalendarTable() {
 			print "<br><span class=\"iftarcal-hijridate\">";
 			print $hijdate;
 			print "</span></p>\n";
-			
+
 			print "\t\t<p class=";
 			print $events [$key] ["class"];
 			print ">";
@@ -455,14 +392,14 @@ function printCalendarTable() {
 			$dtcurrent->add(new DateInterval('P1D'));
 			continue; // go to the next day
 		}
-		
+
 		// now print the table cell contents
 		// <td>
 		//	<p> [gregdate] <br> <span> [hijridate] </span> </p>
 		//	<input />
 		//	<button> [avail] </button>
 		// </td>
-		
+
 		// use a class to color cell based on availability
 		if ($avail >= $CONFIG['default_num_hosts']) {
 			print "\t<td class=\"success iftarcal-table-cell\">\n";
@@ -478,7 +415,7 @@ function printCalendarTable() {
 		print "<br><span class=\"iftarcal-hijridate\">";
 		print $hijdate;
 		print "</span></p>\n";
-		
+
 		if ($avail > 0) {
 			// print "\t<input type=\"hidden\" name=\"date\" value=\"$key\">\n";
 			print "\t<button  type=\"submit\" name=\"date\" value=\"$key\" class=\"btn btn-primary btn-xs iftarcal-datebutton\">Available ($avail)</button>\n";
@@ -492,21 +429,21 @@ function printCalendarTable() {
 		// increment date
 		$dtcurrent->add(new DateInterval('P1D'));
 	}
-		
+
 	// print eid cell and any padding to fill out the calendar (basically a special case of above code)
 	// $dtcurrent->add(new DateInterval('P1D'));
 	$day = date_format ( $dtcurrent, 'w');
 	$mon = date_format ( $dtcurrent, 'M');
 	$date = date_format ( $dtcurrent, 'j');
 	$hmon = "Shawwal";
-	
+
 	$col = $day % 7;
 	if ($col == 0) {
 		// start a new table row
 		print "</tr>\n";
 		print "<tr class=\"iftarcal-table-row\">\n";
 	}
-	
+
 	// now print the cell contents
 	print "\t<td class=\"iftarcal-table-cell\">\n";
 	print "\t<p class=\"iftarcal-date\">";
@@ -523,22 +460,22 @@ function printCalendarTable() {
 	print "\tEid-ul-Fitr";
 	print "</p>\n";
 	print "\t</td>\n";
-	
+
 	// print trailing cols, if any
 	$col = $day % 7;
 	for($j = 0; $j < (7 - $col - 1); $j ++) {
 		print "\t<td class=\"iftarcal-table-cell\"></td>\n";
 	}
-	
+
 	print "</tr>\n</table></form>\n";
-	
+
 	// release table lock
 	$query = "UNLOCK TABLES";
 	if (! ($result = mysqli_query ($dbconn,$query))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_error ($dbconn) );
 	}
-	
-	
+
+
 	mysqli_close($dbconn);
 
 }
@@ -563,7 +500,7 @@ function getRequestedDateKey () {
 	}
 
 	// otherwise returns undefined
-	
+
 }
 
 /******************************************************************/
@@ -576,26 +513,26 @@ function printRequestedDate () {
 	else {
 		$dt = new DateTime($_POST['date']);
 	}
-	
+
 	echo date_format ($dt, 'l, F j, Y');
-}	
+}
 
 /******************************************************************/
 function printHosts ($key) {
 	// returns a formatted HTML string with the hosts for the given date key.
 	// includes CSS styles so caller may need to strip them if they are not wanted
-	
+
 	global $CONFIG;
-	
+
 	$entry = getEntryByKey($key);
 	if (!$entry) {
 		iftarcal_log ( E_USER_ERROR, "printHosts(): Failed to lookup entry for date: $key ..." );
 		return false;
 	}
-	
+
 	// found existing entry for this date
 	$numhosts = $entry['numhosts'];
-		
+
 	if ($numhosts == 0) {
 		$cohosts = "<p class=\"iftarhost-display-sm\">None</p>";
 	}
@@ -604,21 +541,21 @@ function printHosts ($key) {
 		foreach ($entry['hosts'] as $host) {
 			$cohosts .= "<p class=\"iftarhost-display-sm\">Co-host: " . $host['name'] . "</p>\n";
 		}
-		
+
 	}
-	
+
 	iftarcal_log(E_USER_NOTICE, "printHosts(): date: $key, num: $numhosts, cohosts: $cohosts");
-	
-	
+
+
 	return $cohosts;
-	
+
 }
 
 function printEditHosts ($key) {
 	// returns a string with edit buttons for each host to display on web pages
-	
+
 	global $CONFIG;
-	
+
 	$entry = getEntryByKey($key);
 	if (!$entry) {
 		iftarcal_log ( E_USER_ERROR, "printEditHosts(): Failed to lookup entry for date: $key ..." );
@@ -628,11 +565,11 @@ function printEditHosts ($key) {
 	if ($entry['numhosts'] == 0) {
 		return;
 	}
-	
+
 	$html = "";
 	for ($i = 0; $i < $entry['numhosts']; $i++) {
 		$html .= "<p>\n";
-		// first the buttons		
+		// first the buttons
 		$html .= "<button class=\"btn btn-default btn-sm\" data-toggle=\"modal\" data-target=\"#edit-modal\" data-host-index=\"$i\">";
 		$html .= "<span class=\"iftarcal-edit-button\"><span class=\"glyphicon glyphicon-edit\"></span></span>";
 		$html .= "</button>";
@@ -643,9 +580,9 @@ function printEditHosts ($key) {
 		$html .= "  <span class=\"iftarcal-host-display\">" . $entry['hosts'][$i]['name'] . "</span>\n";
 		$html .= "</p>\n";
 	}
-	
+
 	return $html;
-	
+
 }
 
 /******************************************************************/
@@ -656,7 +593,7 @@ function printAssigned ($host, $key) {
   	print "<p class=\"reservetablefield\" align=\"center\"><strong>Host: " . $host['name'] . "</strong></p>";
 
 }
-	
+
 
 /******************************************************************/
 
@@ -664,21 +601,21 @@ function printAllAssigned ($key) {
   global $CONFIG;
 
 	$dt = new DateTime($key);
-	
+
 	// connect to DB
 	$dbconn = mysqli_connect ( $CONFIG ['dbserver'], $CONFIG ['dbuser'], $CONFIG ['dbpw'], $CONFIG ['dbname'] ) or die ( "Error connecting to database: " . mysqli_error ( $dbconn ) );
-	
+
 	if (! $dbconn) {
 		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
 		die ();
 	}
-	
+
 	// get a lock on the table
 	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " READ";
 	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_error ($dbconn) );
 	}
-	
+
 	$query = "SELECT * FROM " . $CONFIG ['tablename'] . " WHERE date='$key'";
 	$data = mysqli_query ( $dbconn, $query );
 	if (mysqli_num_rows($data) == 0) {
@@ -693,23 +630,23 @@ function printAllAssigned ($key) {
 			$hostarray = unserialize($row['hosts']);
 		}
 	}
-	
+
 	// print "<p class=\"iftarformsubheading\">Iftar on " . date_format ($dt, 'l, F j, Y') . " will insha Allah be hosted by</p>\n";
-	
+
 	$cohosts = "";
 	foreach ($hostarray as $host) {
 		$cohosts .= "<p class=\"iftarhost-display\">Co-host: " . $host['name'] . "</p>\n";
 	}
-		
+
 		// release table lock
 	$query = "UNLOCK TABLES";
 	if (! ($result = mysqli_query ( $dbconn, $query ))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_error ($dbconn) );
 	}
-	
+
 	mysqli_free_result ( $data );
 	mysqli_close ( $dbconn );
-	
+
 	return $cohosts;
 
 }
@@ -719,26 +656,26 @@ function printAllAssigned ($key) {
 function printSignupInfo() {
 
 	// creates and display an html file from a smarty template with information for hosts
-	
+
 	global $CONFIG;
-	
+
 	if (!file_exists($CONFIG['signupinfo_template'])) {
 		iftarcal_log(E_USER_ERROR, "signupinfo template file not found");
 		return ;
 	}
-	
+
 	$smarty = new Smarty();
-	
+
 	$smarty->assign('expected_attendees', $CONFIG['expected_attendees']);
 	$smarty->assign('total_donation', $CONFIG['donation_per_iftar']);
-	
+
 	echo $smarty->fetch($CONFIG['signupinfo_template']);
-	
+
 }
 
 function getContactEmail() {
 	global $CONFIG;
-	
+
 	return ($CONFIG['contact_email']);
 }
 
@@ -757,7 +694,7 @@ function reserve () {
 		iftarcal_log(E_USER_ERROR, "reserve(): check_submit key not found -- invalid request. Exiting ...");
 		exit();
 	}
-	
+
 	if (isset($_POST['date'])) {
 		$key = strip_tags(trim($_POST['date']));
 	}
@@ -770,7 +707,7 @@ function reserve () {
 	if (isset($_POST['phone'])) {
 		$phone = strip_tags(trim($_POST['phone']));
 	}
-		
+
 
 
 	// connect to DB
@@ -779,13 +716,13 @@ function reserve () {
 		iftarcal_log ( E_USER_ERROR, "Can't connect to db " . $CONFIG ['dbname'] . mysqli_connect_error () );
 		die ();
 	}
-	
+
 	// get a lock on the table
 	$query = "LOCK TABLES " . $CONFIG ['tablename'] . " WRITE";
 	if (mysqli_query ( $dbconn, $query ) === false) {
-		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "Can't lock table " . $CONFIG ['tablename'] . mysqli_error ($dbconn) );
 	}
-	
+
 	$query = "SELECT * FROM " . $CONFIG ['tablename'] . " WHERE date='$key'";
 	$data = mysqli_query ( $dbconn, $query );
 	if (mysqli_num_rows($data) == 0) {
@@ -798,19 +735,19 @@ function reserve () {
 		$row = mysqli_fetch_assoc ( $data );
 		$numhosts = $row ['numhosts'];
 	}
-	
+
 	$hostarray = unserialize($row['hosts']);
-	
+
 	// a new reservation may be added if:
 	//   there are less than 'default_num_hosts' already signed up
 	//   TODO or the refid of an existing host is supplied
-	
+
 	if ($numhosts >= $CONFIG['default_num_hosts']) {
 		iftarcal_log(E_USER_INFO, "reserve(): new signup when there are already $numhosts hosts");
 		echo "Number of allowed hosts for this date has already been exceeded -- please choose another date";
 		return;
 	}
-	
+
 	// add the new host info
 	$refid = uniqid();
 	$dtts = new DateTime();
@@ -822,15 +759,15 @@ function reserve () {
 		'refid' => $refid,
 		'timestamp' => $timestamp
 	);
-	
-	
+
+
 	iftarcal_log(E_USER_NOTICE, "reserve(): processing signup for $name on $key ($email / $phone / $refid / $timestamp)");
-	
+
 	$hostarray[] = $host;
-	
+
 	$updated_hosts = serialize($hostarray);
 	$numhosts++;
-  
+
 	$query = "UPDATE " . $CONFIG['tablename'] . " SET numhosts = '$numhosts', hosts = '$updated_hosts' WHERE date = '$key'";
 	if (!mysqli_query ($dbconn, $query)) {
 		// update failed
@@ -840,19 +777,19 @@ function reserve () {
 	else {
 		$success = true;
 	}
-	
+
 	// release table lock
 	$query = "UNLOCK TABLES";
 	if (! ($result = mysqli_query ($dbconn,$query))) {
-		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_connect_error () );
+		iftarcal_log ( E_USER_ERROR, "UNLOCK failed: " . mysqli_error ($dbconn) );
 	}
-	
+
 	mysqli_close($dbconn);
-	
+
 	if ($success) {
 		$dt = new DateTime($key);
 		 // print confirmation
-    	
+
       	echo "<p>Contact information:</p>", "\n";
       	echo "<p class=\"iftarcal-contactinfo\">$name<br>$phone<br>$email</p>";
       	echo "<p>You will receive an email confirmation and further information shortly.</p>";
@@ -862,8 +799,8 @@ function reserve () {
 	if ($CONFIG['send_email_notifications']) {
    	    sendEmailConfirmation ($key, $host, $hostarray);
 	}
-	
-/*		
+
+/*
 			// send email notification to site owner
 	    	$mailmsg = sprintf ("Successful signup for %s:\n%s\n%s\n%s\nRef: %s", date ('l, F j, Y', $date), $name, $phone, $email, $refid);
 		    $mailto = $notifications;
@@ -887,7 +824,7 @@ function removeHost ($key, $refid)
 		iftarcal_log(E_USER_WARNING, "removeHost(): No hosts to remove for date $key");
 		return false;
 	}
-	
+
 	$found = false;
 	// find the index of the host with the given refid
 	for ($i = 0; $i < count($hostentry['hosts']); $i++) {
@@ -898,7 +835,7 @@ function removeHost ($key, $refid)
 			// decrement number of hosts
 			$hostentry['numhosts'] -= 1;
 			break;
-		}	
+		}
 	}
 
 	if ($found) {
@@ -908,13 +845,13 @@ function removeHost ($key, $refid)
 		}
 		iftarcal_log(E_USER_NOTICE, "removeHost(): removed host with refid: $refid on date $key");
 		return true;
-		
+
 	}
 	else {
 		iftarcal_log(E_USER_NOTICE, "removeHost(): did not find host with refid: $refid on date $key");
 		return false;
 	}
-	
+
 }
 
 /******************************************************************/
@@ -922,13 +859,13 @@ function sendEmailTemplate ($key, $host, $hostarray, $body, $subject) {
 	// send an email using a populated html file to the given host with the given subject line
 	// if $host is not NULL, the mail is addressed to the specified host
 	// if $host is NULL, the mail is addressed to all hosts in $hostarray
-	
+
 	global $CONFIG;
-	
+
 	$mail = new PHPMailer;
-	
+
 	$mailbody = $body;
-	
+
 	$mail->isSMTP();                        // Set mailer to use SMTP
 	$mail->Host = $CONFIG['mailhost'];				// Specify server
 	$mail->Port = 465;						// SMTP server port
@@ -936,13 +873,13 @@ function sendEmailTemplate ($key, $host, $hostarray, $body, $subject) {
 	$mail->Username = $CONFIG['mailusername'];        // SMTP username
 	$mail->Password = $CONFIG['mailpw'];              // SMTP password
 	$mail->SMTPSecure = 'ssl';              // Enable encryption, 'ssl' also accepted
-	
+
 	$mail->From = $CONFIG['mailfromaddr'];
 	$mail->FromName = $CONFIG['mailfromname'];
-	
+
 	if (DEBUG == true) {
 		// send email only to debug email addr
-		$mail->addAddress($CONFIG['debugmail']);  
+		$mail->addAddress($CONFIG['debugmail']);
 	}
 	elseif ($host == NULL) {
 		// send to all hosts
@@ -961,13 +898,13 @@ function sendEmailTemplate ($key, $host, $hostarray, $body, $subject) {
 			}
 		}
 	}
-	
+
 	$mail->isHTML (true);
-	
+
 	$mail->Subject = $subject;
-	
+
 	$mail->addEmbeddedImage("img/uwms_letterhead_announce.gif", "uwmsletterhead");
-	
+
 	$mail->Body = $mailbody;
 	if(!$mail->send()) {
 		iftarcal_log(E_USER_ERROR, "sendEmailNotification(): Message could not be sent: " . $mail->ErrorInfo);
@@ -977,19 +914,19 @@ function sendEmailTemplate ($key, $host, $hostarray, $body, $subject) {
 		iftarcal_log(E_USER_NOTICE, "sendEmailNotification(): Sent email notification to "  . $host['name'] . "(" . $host['email'] . ") for $key");
 		return true;
 	}
-	
+
 }
 
 /******************************************************************/
 
 function sendEmailConfirmation($key, $host, $hostarray) {
-	
+
 	global $CONFIG;
-	
+
 	$dt = new DateTime($key);
 	$smarty = new Smarty();
-	
-	
+
+
 	iftarcal_log(E_USER_NOTICE, "sendEmailConfirmation(): date: $key " . print_r($host,true) . print_r ($hostarray, true));
 	$smarty->assign('host_name', $host['name']);
 	$smarty->assign('hosting_date', date_format($dt, 'D, M j, Y'));
@@ -998,15 +935,15 @@ function sendEmailConfirmation($key, $host, $hostarray) {
 	$smarty->assign('iftar_hosts', $hostarray);
 	$smarty->assign('expected_attendees', $CONFIG['expected_attendees']);
 	$smarty->assign('total_donation', $CONFIG['donation_per_iftar']);
-	
+
 	$mailbody = $smarty->fetch($CONFIG['notification_template']);
-	
+
 	$subject = "Iftar signup confirmation for $key";
-	
+
 	if (!sendEmailTemplate($key, $host, $hostarray, $mailbody, $subject)) {
 		echo "Could not send confirmation email";
 	}
-	
+
 }
 
 /******************************************************************/
@@ -1016,7 +953,7 @@ function printDateTaken ($datestr) {
   $date = (float) strtotime ($datestr);
 
   echo "<p class=\"iftarformsubheading\">Sorry, this iftar on " . date ('l, F j, Y', $date) . " is already assigned.<br> Please try another date insha Allah.</p>";
-   
+
 }
 
 
@@ -1050,8 +987,8 @@ function notifyError ($errstring) {
 /******************************************************************/
 function iftarcal_log ($loglevel, $message) {
 	global $CONFIG;
-	
-	
+
+
 	switch ($loglevel) {
 		case (E_USER_ERROR):
 			$errlev = "ERROR ";
@@ -1064,7 +1001,7 @@ function iftarcal_log ($loglevel, $message) {
 			break;
 		default:
 			$errlev = "INFO	";
-			
+
 	}
 
 	if ($loglevel <= E_USER_ERROR) {
@@ -1078,7 +1015,7 @@ function iftarcal_log ($loglevel, $message) {
 
 	if ($CONFIG['email_notify_errors']) {
 		$mail = new PHPMailer;
-		
+
 		$mail->isSMTP();                        // Set mailer to use SMTP
 		$mail->Host = $CONFIG['mailhost'];				// Specify server
 		$mail->Port = $CONFIG['mailport'];						// SMTP server port
@@ -1086,21 +1023,21 @@ function iftarcal_log ($loglevel, $message) {
 		$mail->Username = $CONFIG['mailusername'];        // SMTP username
 		$mail->Password = $CONFIG['mailpw'];              // SMTP password
 		$mail->SMTPSecure = 'ssl';              // Enable encryption, 'ssl' also accepted
-		
+
 		$mail->From = $CONFIG['mailfromaddr'];
 		$mail->FromName = $CONFIG['mailfromname'];
-		
+
 		$mail->addAddress($CONFIG['admin_email_notifications']);  // Add a recipient
 
 		$mail->isHTML (false);
 		$mail->Subject = "iftarcal error";
-		
+
 		$mailbody = date('[Y-m-d H:i e] ') . $errlev . $message . PHP_EOL;
-		
+
 		if(!$mail->send()) {
 			error_log(date('[Y-m-d H:i e] ') . "ERROR " . $mail->ErrorInfo . PHP_EOL, 3, $CONFIG['IFTARCAL_LOG_FILE']);
 		}
-		
+
 	}
 }
 
