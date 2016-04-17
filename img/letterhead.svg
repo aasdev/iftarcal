@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3055"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   width="806.48004"
+   height="84.03125"
+   sodipodi:docname="letterhead.svg">
+  <metadata
+     id="metadata3061">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3059">
+    <filter
+       inkscape:label="Duotone"
+       inkscape:menu="Color"
+       inkscape:menu-tooltip="Change colors to a duotone palette"
+       height="1"
+       width="1"
+       y="0"
+       x="0"
+       color-interpolation-filters="sRGB"
+       id="filter3414">
+      <feColorMatrix
+         type="saturate"
+         values="0"
+         result="result1"
+         id="feColorMatrix3416" />
+      <feFlood
+         flood-color="rgb(9,111,152)"
+         id="feFlood3418" />
+      <feBlend
+         in2="result1"
+         mode="screen"
+         result="result2"
+         id="feBlend3420" />
+      <feComposite
+         operator="in"
+         in2="SourceGraphic"
+         in="result2"
+         id="feComposite3422" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1224"
+     inkscape:window-height="711"
+     id="namedview3057"
+     showgrid="false"
+     inkscape:zoom="1.2"
+     inkscape:cx="397.61544"
+     inkscape:cy="-59.8125"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3055"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <g
+     id="g4206"
+     transform="translate(0.94877681,122.34375)"
+     inkscape:export-filename="/Users/ashaikh/workspace/iftarcal/img/letterhead.gif.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90">
+    <g
+       style="filter:url(#filter3414)"
+       inkscape:label="Layer 1"
+       id="layer1"
+       transform="matrix(0.91093461,0,0,0.89312153,-166.54696,-530.11303)">
+      <g
+         id="g3300"
+         transform="translate(67.290861,442.11587)"
+         style="fill:#44aa00;fill-opacity:1">
+        <rect
+           ry="0.31012449"
+           rx="0.31012449"
+           y="14.892772"
+           x="114.49846"
+           height="93.564217"
+           width="93.564217"
+           id="rect3302"
+           style="color:#000000;fill:#44aa00;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.20000005;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      </g>
+      <path
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.20000005;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m 254.4101,474.50014 c -0.77589,2.42822 -4.32219,2.38573 -3.3125,7.65625 l 3.3125,0 3.3125,0 c 1.0097,-5.27052 -2.53662,-5.22803 -3.3125,-7.65625 z m -4.28125,8.375 0,1.71875 8.5625,0 0,-1.71875 -8.5625,0 z m 1.03125,2.5 -1.03125,19.09375 3.96875,0 0.0625,3.875 -0.90625,0 0,16.65625 6.4375,0 -2.28125,-39.625 -6.25,0 z m -26.4375,0.34375 c -3.79836,5.86464 -21.09921,5.70812 -16.15625,18.4375 l 16.15625,0 16.15625,0 c 4.94296,-12.72938 -12.35789,-12.57286 -16.15625,-18.4375 z m -28.28125,19.71875 0,1.78125 56.5625,0 0,-1.78125 -56.5625,0 z m 1,2.78125 0,16.65625 7.15625,0 0,-6.5 0,-0.25 0.0312,0 c 0.0124,-0.15751 0.0277,-0.2972 0.0625,-0.4375 0.5222,-2.10447 3.42826,-2.38312 4.1875,-3.875 0.0506,0.0995 0.11922,0.19175 0.1875,0.28125 1.02422,1.34253 3.87702,1.66858 4.0625,4.03125 0.0131,0.16697 0.0154,0.34285 0,0.53125 l 0,6.21875 7,0 0,-6.5 0,-0.25 0.0312,0 c 0.0989,-1.26009 0.96971,-1.93581 1.90625,-2.5 0.93654,-0.56419 1.93882,-1.01683 2.34375,-1.8125 0.0506,0.0995 0.11922,0.19175 0.1875,0.28125 1.02422,1.34253 3.87702,1.66858 4.0625,4.03125 0.0131,0.16697 0.0154,0.34285 0,0.53125 l 0,6.21875 7.625,0 0,-6.5 0,-0.25 0.0312,0 c 0.0989,-1.26009 0.96971,-1.93581 1.90625,-2.5 0.93654,-0.56419 1.93882,-1.01683 2.34375,-1.8125 0.0506,0.0995 0.11922,0.19175 0.1875,0.28125 1.02422,1.34253 3.87702,1.66858 4.0625,4.03125 0.0131,0.16697 0.0154,0.34285 0,0.53125 l 0,6.21875 7.1875,0 0,-16.65625 -54.5625,0 z"
+         id="path3304"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path3426"
+       d="m 91.666667,-76.166667 c 707.500003,0 707.500003,0 707.500003,0"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3428"
+       y="-85.333336"
+       x="88.333336"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         y="-85.333336"
+         x="88.333336"
+         id="tspan3430"
+         sodipodi:role="line">Muslim Society</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3432"
+       y="-57.833332"
+       x="505"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         y="-57.833332"
+         x="505"
+         id="tspan3434"
+         sodipodi:role="line">http://www.masjid.org | info@masjid.org</tspan></text>
+    <rect
+       y="-121.83334"
+       x="0"
+       height="83"
+       width="805"
+       id="rect3436"
+       style="opacity:0.76666667;fill:none;stroke:#000000;stroke-width:1.04048479;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  </g>
+</svg>

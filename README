@@ -1,13 +1,15 @@
 iftarcal -- Iftar signup calendar
-Version: 0.2
+Version: 0.5
 
 AUTHOR:  Anees Shaikh
-         Copyright (c) 2012, Anees Shaikh
+         Copyright (c) 2012-2016, Anees Shaikh
          All rights reserved.
 
 LICENSE
 
-This software is distributed under the GPL v.3 license.  Please see the the accompanying "LICENSE" file for terms.
+As of version 0.5 this software is distributed under the Apache 2.0 license.  Please see the the accompanying "LICENSE" file for terms.
+
+Previous versions were distributed under the GPL v3 license.
 
 DESCRIPTION
 
@@ -21,6 +23,8 @@ It is recommended to use a tool like phpMyAdmin to simplify creation and setup o
 
 FILES
 
+  In order to customize iftarcal, you may want to modify some of the following files:
+
   iftar.php         the main application file -- all functions are implemented here
   iftarcal.sql         initialization for the iftarcal database (import using phpMyAdmin)
   iftarcal.css      sample stylesheet for iftar calendar
@@ -33,7 +37,7 @@ FILES
   mailtest.php      utility file for testing the confirmation emails
   emailconf-[top|bottom].html   sample email confirmation (do not change the filenames -- change content only).
   class.phpmailer.php php class library for sending email (public domain, note copyright info in file)
-  
+
 INSTALLATION
 
 1. Set up the iftarcal database using the iftarcal.sql initialization file
@@ -47,13 +51,6 @@ INSTALLATION
 5. Modify events.dat file if you have any special events during the month that would replace the iftar.  The events.dat
 file is tab-separated with <fulldate>	<text w/html tags>	<style name in iftarcal.css>.  See the example.
 
-
-KNOWN ISSUES
-
-o The current version is somewhat tied to having two hosts for each day.  Workaround is to supply the same name in both slots for a single hosts, or list multiple names in a slot for more than 2 hosts
-
-o There is no function in the current version to delete or modify
-hosts once they are in the db.  Changes require modifications to the database table directly.  This will be added in later version.
 
 
 

@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+<!--
+Copyright 2016 Anees Shaikh
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -21,7 +36,7 @@
   <body>
   <div class="container">
   		<div class="header">
-  			<a href="http://www.uwms.org"><img src="img/uwms_letterhead_announce.gif" alt="Upper Westchester Muslim Society" /></a>
+  			<a href="http://www.masjid.org"><img src="img/letterhead.png" alt="Muslim Society" /></a>
   		</div>
   		<div class="row">
   			<div class="col-sm-8 col-sm-offset-3">
@@ -30,13 +45,13 @@
   		</div>
   		<div class="row">
    			<div class="col-sm-8 col-sm-offset-3">
-   				<?php 
+   				<?php
    				include_once 'iftar.php';
    				echo printEditHosts(getRequestedDateKey());
    				?>
    				<p>Any changes or removals require the reference id</p>
    			</div>
-   			
+
    			<div id="edit-modal" class="modal fade" role="dialog">
    				<div class="modal-dialog">
    					<div class="modal-content">
@@ -82,11 +97,11 @@
    		        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         					<button type="submit" name="btnSubmit" class="btn btn-primary">Save changes</button>
         				</div>
-        				</form>   						   						
+        				</form>
    					</div> <!-- modal-content -->
    				</div> <!-- modal-dialog -->
    			</div> <!-- modal -->
-   			
+
    			<div id="remove-modal" class="modal fade" role="dialog">
    				<div class="modal-dialog">
    					<div class="modal-content">
@@ -101,7 +116,7 @@
    							<form class="form-horizontal" role="form" id="remove-host-form" action="remove.php" method="POST">
 								<input type="hidden" name="check_submit" value="check_submit">
 								<input type="hidden" name="date" value="<?php include_once "iftar.php";echo trim(getRequestedDateKey());?>">
-								
+
 								<div class="form-group"></div>
 								<div class="form-group">
 			  						<label class="control-label col-sm-3" for="submitRefidInput">Reference id:</label>
@@ -109,7 +124,7 @@
 		  								<input class="form-control" type="text" name="refid" value="" id="submitRefidInput">
 		  							</div>
 		  						</div>
-		  					
+
    						</div> <!-- modal-body -->
    						<div class="modal-footer">
    		        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -135,15 +150,15 @@
    					</div> <!-- alert model-content -->
    				</div>
    			</div>
-        	
+
    		</div> <!-- row -->
-   		
+
    		<div class="row">
  			<div class="col-sm-5 col-sm-offset-3">
  				<p><a href="index.php">Back to Iftar Calendar</a></p>
 			</div>
 		</div>
-   		
+
   </div>
 
 

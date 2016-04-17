@@ -18,15 +18,15 @@ buildHostTable ();
 
 function buildHostTable ()
 {
-	
+
 	global $CONFIG;
-	
+
 	$returndata = array();
 	$dtcurrent = new DateTime ($CONFIG['ramadan_start_date']);
 	$dtincr = new DateInterval('P1D');
 	$numdays = calcNumRamadanDays();
-	for ($i = 0; $i <= $numdays; $i++, $dtcurrent = $dtcurrent->add($dtincr)) { 
-		
+	for ($i = 0; $i <= $numdays; $i++, $dtcurrent = $dtcurrent->add($dtincr)) {
+
 		$key = $dtcurrent->format ('Y-m-d');
 		if ($entry = getEntryByKey($key)) {
 			if ($entry['numhosts'] > 0) {
@@ -39,8 +39,8 @@ function buildHostTable ()
 			else {
 				$hoststring = "";
 			}
-				
-				
+
+
 			$rowarray = array (
 				'date' => $key,
 				'hosts' => $hoststring,
@@ -52,7 +52,7 @@ function buildHostTable ()
 		$returndata[] = $rowarray;
 	}
 
-	
+
 	echo json_encode ($returndata);
 
 }

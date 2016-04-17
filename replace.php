@@ -1,4 +1,19 @@
 <?php
+/******************************************************************
+Copyright 2012-2016 Anees Shaikh
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+******************************************************************/
 
 include_once 'iftar.php';
 
@@ -12,47 +27,47 @@ if (!$_POST || !array_key_exists('check_submit', $_POST)) {
 processHostUpdate ();
 
 function processHostUpdate () {
-	
+
 	global $CONFIG;
 
 	if (isset($_POST['date'])) {
 		$key = strip_tags(trim($_POST['date']));
 	}
-	
+
 	if (isset($_POST['index'])) {
 		$index = strip_tags(trim($_POST['index']));
 	}
-	
+
 	if (isset($_POST['refid'])) {
 		$refid = strip_tags(trim($_POST['refid']));
 	}
-	
+
 	if (isset($_POST['name'])) {
 		$name = strip_tags(trim($_POST['name']));
 	}
-	
+
 	if (isset($_POST['email'])) {
 		$email = strip_tags(trim($_POST['email']));
 	}
-	
+
 	if (isset($_POST['phone'])) {
 		$phone = strip_tags(trim($_POST['phone']));
 	}
-	
-	$entry = getEntryByKey($key); 
+
+	$entry = getEntryByKey($key);
 	if (!$entry) {
 		iftarcal_log(E_USER_ERROR, "processHostUpdate(): could not retrieve host entry for $key");
 		sendResponse (false, "Error updating host entry -- no updates made");
 		exit;
 	}
-	
+
 	// check that the refid matches
 	if ($entry['hosts'][$index]['refid'] != $refid) {
 		iftarcal_log(E_USER_NOTICE, "processHostUpdate(): submitted refid does not match for host " . $entry['hosts'][$index]['name'] . "on $key");
 		sendResponse(false, "Invalid refid -- please check it and try again. No updates made");
 		exit;
 	}
-	
+
 	// refid matches -- update
 	$entry['hosts'][$index]['name'] = $name;
 	$entry['hosts'][$index]['phone'] = $phone;
@@ -63,7 +78,7 @@ function processHostUpdate () {
 	$timestamp = date_format ($dtts, 'Y-m-d H:i:s');
 	$entry['hosts'][$index]['refid'] = $refid;
 	$entry['hosts'][$index]['timestamp'] = $timestamp;
-	
+
 	if (!replaceEntryByKey($key, $entry)) {
 		iftarcal_log(E_USER_ERROR, "processHostUpdate(): could not update host entry for $key");
 		sendResponse (false, "Error updating host entry -- no updates made");
@@ -73,35 +88,35 @@ function processHostUpdate () {
 		sendResponse (true, "Update successful");
 		iftarcal_log(E_USER_NOTICE, "processHostUpdate(): updated host contact info for host " . $entry['hosts'][$index]['name'] . "on $key");
 	}
-	
+
 	if ($CONFIG['send_email_on_update']) {
-		
+
 		$dt = new DateTime($key);
 		$smarty = new Smarty();
-			
+
 		$smarty->assign('host_name', $entry['hosts'][$index]['name']);
 		$smarty->assign('hosting_date', date_format($dt, 'D, M j, Y'));
 		$smarty->assign('contact_email', $CONFIG['contact_email']);
 		$smarty->assign('iftar_hosts', $entry['hosts']);
 		$smarty->assign('expected_attendees', $CONFIG['expected_attendees']);
 		$smarty->assign('total_donation', $CONFIG['donation_per_iftar']);
-		
+
 		$mailbody = $smarty->fetch($CONFIG['update_template']);
 		$subject = "Updated iftar host information for $key";
 
 		if (!sendEmailTemplate($key, $entry['hosts'][$index], $entry['hosts'], $mailbody, $subject)) {
 			iftarcal_log(E_USER_ERROR, "processHostUpdate(): could not send email confirmation for host entry update on $key");
 		}
-	
+
 	}
 
 }
 
 function sendResponse($status, $message) {
-	
+
 	$response = array ('status' => $status, 'message' => $message);
 	echo json_encode($response);
-	
+
 }
 
 ?>

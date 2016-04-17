@@ -37,12 +37,12 @@
 }
 
 .iftarcal-assigned {
-/* 	font-family: "Courier New", Courier, mono; 
+/* 	font-family: "Courier New", Courier, mono;
 	font-size: 15px;
 	color: #CC0000;
 	*/
 	font-weight: bold;
-	
+
 }
 
 .helptext {
@@ -73,7 +73,7 @@
 	font-size: 18px;
 	font-weight: bold;
 }
-	
+
 .potluck {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
@@ -114,9 +114,9 @@
 }
 
 .dateheader {
-/*	
+/*
 	font-family: Arial, Helvetica, sans-serif;
-*/	
+*/
 	font-size: 18px;
 	font-weight: bold;
 	text-align: center;

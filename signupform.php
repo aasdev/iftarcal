@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+<!--
+Copyright 2012-2016 Anees Shaikh
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -21,7 +36,7 @@
   <body>
   <div class="container">
   		<div class="header">
-  			<a href="http://www.uwms.org"><img src="img/uwms_letterhead_announce.gif" alt="Upper Westchester Muslim Society" /></a>
+  			<a href="http://www.masjid.org"><img src="img/letterhead.png" alt="Muslim Society" /></a>
   		</div>
   		<div class="row">
    			<div class="col-sm-8">
@@ -30,7 +45,7 @@
 				<input type="hidden" name="date" value="<?php include_once "iftar.php";echo trim(getRequestedDateKey());?>">
 					<div class="col-sm-offset-3">
 						<h4 class="form-control-static uwms-form-section">Host signup for <?php include_once "iftar.php"; printRequestedDate(); ?></h4>
-					</div>						
+					</div>
 					<div class="form-group">
 					</div>
 					<div class="form-group">
@@ -55,7 +70,7 @@
   						<div class="col-sm-offset-3 col-sm-5">
   							<button type="submit" class="btn btn-primary btn-sm">Submit</button>
   						</div>
-  					</div> 					
+  					</div>
 			</form>
    			</div>
    			<div class="col-sm-4">
@@ -72,12 +87,12 @@
 				echo "</a>";
 				echo "</p>";
    			}
-   			?> 			   			
+   			?>
    			</div>
    		</div>
    		<div class="row">
  			<div class="col-sm-offset-2 col-sm-4">
- 				<p>Up to <?php include_once "iftar.php"; echo ($CONFIG['default_num_hosts']);?> hosts may sign up for each day.  
+ 				<p>Up to <?php include_once "iftar.php"; echo ($CONFIG['default_num_hosts']);?> hosts may sign up for each day.
  				If you wish to host a full day, please sign up for all <?php include_once "iftar.php"; echo ($CONFIG['default_num_hosts']);?> slots.</p>
 			</div>
 		</div>
@@ -96,7 +111,7 @@
    		</div>
   </div>
 
-	
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

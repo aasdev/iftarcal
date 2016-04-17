@@ -11,7 +11,7 @@
 	  include "iftar.php";
 	  printAssignmentTable();
       ?>
-</div>      
+</div>
 </body>
 </html>
 
