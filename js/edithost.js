@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 
 jQuery.validator.addMethod ("hexdigits", function (value, element) {
@@ -10,7 +10,7 @@ var entry;
 
 
 $(document).ready(function() {
-	
+
 	var re = /^\?date=([0-9\-]+)/;
 	var key = window.location.search.match(re)[1];
 	request = $.ajax({
@@ -25,13 +25,12 @@ $(document).ready(function() {
 	   	for (var i = 0; i < entry.numhosts; i++) {
 	   		console.log(entry.hosts[i].name);
 	   	}
-	   	
+
 	});
 	request.error(function (response, status, jqXHR) {
 	   	console.error ('Error in request: ' + status, errorThrown);
 	});
-	
-		
+
 });
 
 
@@ -40,7 +39,7 @@ $('#remove-modal').on('show.bs.modal', function (e) {
 	var index = e.relatedTarget.getAttribute("data-host-index");
 	hostname = entry.hosts[index].name;
 	$('#remove-hostname').html(hostname);
-	
+
 	$("#remove-host-form").validate({
         rules: {
             refid: {
@@ -59,18 +58,18 @@ $('#remove-modal').on('show.bs.modal', function (e) {
         	var response = removeHost();
         },
 	});
-	
+
 });
 
 $('#edit-modal').on('show.bs.modal', function (e) {
-	
+
 	var index = e.relatedTarget.getAttribute("data-host-index");
 	hostname = entry.hosts[index].name;
 	$('#edit-host-form').find('#nameInput').val(hostname);
 	$('#edit-host-form').find('#emailInput').val(entry.hosts[index].email);
 	$('#edit-host-form').find('#phoneInput').val(entry.hosts[index].phone);
 	$('#edit-host-form').find('#indexInput').val(index);
-	
+
 	$("#edit-host-form").validate({
         rules: {
         	debug: false,
@@ -101,13 +100,13 @@ $('#edit-modal').on('show.bs.modal', function (e) {
         },
         submitHandler: function (form) {
         	var response = updateHost();
-        	
+
         },
         invalidHandler: function (event, validator) {
         	console.log("errors: ", validator.numberOfInvalids());
         }
     });
-	
+
 });
 
 function removeHost () {
@@ -123,14 +122,14 @@ function removeHost () {
     	// alert ($inputs);
     	var serializeddata = $form.serialize();
     	console.log ("data: ", serializeddata);
-    	
+
     	$inputs.prop("disabled", true);
-    	
+
     	 request = $.ajax({
              url: "remove.php",
              type: "post",
              data: serializeddata
-         });    	 
+         });
     	 request.success(function (response, status, jqXHR) {
     			var result = JSON.parse(response);
     			console.log ("result: ", result);
@@ -148,17 +147,17 @@ function removeHost () {
 				$inputs.prop("disabled", false);
 
    		});
-    	 
+
     	 request.error(function (response, status, jqXHR) {
     		   	console.error ('Error in request: ' + status, errorThrown);
     		   	$inputs.prop("disabled", false);
     	});
-    	
+
 	}
 }
-	
+
 function updateHost () {
-	
+
 	var request;
 
 	if (request) {
@@ -170,14 +169,14 @@ function updateHost () {
     	var $inputs = $('#edit-host-form :input');
     	// alert ($inputs);
     	var serializeddata = $form.serialize();
-    	
+
     	$inputs.prop("disabled", true);
-    	
+
     	 request = $.ajax({
              url: "replace.php",
              type: "post",
              data: serializeddata
-         });    	 
+         });
     	 request.success(function (response, status, jqXHR) {
     			var result = JSON.parse(response);
     			console.log ("result: ", result);
@@ -195,11 +194,11 @@ function updateHost () {
 				$inputs.prop("disabled", false);
 
    		});
-    	 
+
     	 request.error(function (response, status, jqXHR) {
     		   	console.error ('Error in request: ' + status, errorThrown);
     		   	$inputs.prop("disabled", false);
     	});
-    	
+
 	}
 }
