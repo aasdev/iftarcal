@@ -17,6 +17,8 @@ Copyright 2012-2016 Anees Shaikh
 
 include_once ('iftarcal_runconfig.php');
 
+// change the runconfig LOCAL flag to control the paths for
+// dependencies
 if (LOCAL == true) {
 	include ("iftarcal_settings.php");
 	require ("lib/PHPMailerAutoload.php");
@@ -24,9 +26,9 @@ if (LOCAL == true) {
 }
 
 else {
-	include ("/home/uwms/conf/iftarcal_settings.php");
-	require ("/home/uwms/lib/PHPMailerAutoload.php");
-	require ("/home/uwms/lib/Smarty/Smarty.class.php");
+	include ("iftarcal_settings.php");
+	require ("lib/PHPMailerAutoload.php");
+	require ("lib/Smarty/Smarty.class.php");
 }
 
 

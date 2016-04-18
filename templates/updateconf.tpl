@@ -20,7 +20,7 @@ Copyright 2016 Anees Shaikh
 <title></title>
 </head>
 <body>
-<img src="cid:uwmsletterhead" height="84" width="800">
+<img src="cid:letterhead" height="84" width="800">
 
 <p>AsSalamuAlaikum,</p>
 
