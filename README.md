@@ -10,7 +10,7 @@ Iftar signup calendar for Islamic centers to use during the month of Ramadan
 
 The iftar signup calendar application allows Islamic centers to provide a web-based management app for community iftar during Ramadan.
 
-This application was initially developed to support the Iftar program at the [Upper Westchester Muslim Society](uwms.org).  Hopefully it will be useful to other centers providing similar programs for their communities.
+This application was initially developed to support the Iftar program at the [Upper Westchester Muslim Society](http://www.uwms.org).  Hopefully it will be useful to other centers providing similar programs for their communities.  If you find it useful, please make a donation to [UWMS](http://www.uwms.org) to help support the center.
 
 **Features**
 
@@ -59,6 +59,6 @@ Previous versions were distributed under the GPL v3 license.
 
 ## Author
 
-Anees Shaikh
-Copyright (c) 2012-2016, Anees Shaikh
+Anees Shaikh<br>
+Copyright (c) 2012-2016, Anees Shaikh<br>
 All rights reserved.
